@@ -1,2 +1,2 @@
-# GreenPAK
-Everything related to Renesas GreenPAK programable logic devices
+# GreenPAKs
+Everything related to Renesas GreenPAK programable logic devices.
