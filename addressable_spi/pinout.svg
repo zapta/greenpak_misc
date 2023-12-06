@@ -24,15 +24,15 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="1.1768703"
-     inkscape:cx="121.93357"
-     inkscape:cy="62.028925"
+     inkscape:zoom="1.1274411"
+     inkscape:cx="68.739733"
+     inkscape:cy="232.38465"
      inkscape:window-width="1440"
      inkscape:window-height="847"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer1">
+     inkscape:current-layer="layer3">
     <inkscape:grid
        id="grid1"
        units="mm"
@@ -60,9 +60,23 @@
        id="rect2" />
   </defs>
   <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 0">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke-width:1.00576"
+       id="rect3"
+       width="85.000008"
+       height="85.000008"
+       x="0"
+       y="0"
+       inkscape:label="rect3" />
+  </g>
+  <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     style="display:inline">
     <rect
        style="fill:none;stroke:#010101;stroke-width:0.249979;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
        id="rect1"
@@ -172,7 +186,7 @@
        x="60.014973"
        y="7.9401202" />
     <rect
-       style="fill:#fefefe;fill-opacity:0.867521;stroke:#010101;stroke-width:0.201145;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-opacity:0.867521;stroke:#010101;stroke-width:0.201145;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"
        id="rect1-2-3-76"
        width="6.9999981"
        height="2.9999971"
