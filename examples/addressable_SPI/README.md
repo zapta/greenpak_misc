@@ -39,10 +39,10 @@ Each SPI device uses a SLG46826 SPLD which decodes the address in the first byte
 | 11 | |       | Unused. Leave unconnected.        |
 | 12 |SDA | in/out      | I2C SDA signal for programming. Pullup to 3.3V using a resistor.        |
 | 13 |SCL | in      | I2C SCL signal for programming. Pullup to 3.3V using a resistor.       |
-| 14 |A3 | in     | Address 0. Tie to 0 or 3.3V.       |
-| 15 |A2 | in      | Address 0. Tie to 0 or 3.3V.         |
-| 16 |A1 | in      | Address 0. Tie to 0 or 3.3V.        |
-| 17 |A0 | in      | Address 0. Tie to 0 or 3.3V.         |
+| 14 |A3 | in     | Address 3. Tie to 0V for 0. Leave unconnected for 1 (internal pullup). |
+| 15 |A2 | in      | Address 2. Similar to A3.         |
+| 16 |A1 | in      | Address 1. Similar to A3.        |
+| 17 |A0 | in      | Address 0. Similar to A3.         |
 | 18 | |       | Unused. Leave unconnected.        |
 | 19 | |       | Unused. Leave unconnected.        |
 | 20 |VDD | power in     | 3.3V supply.        |
