@@ -4,6 +4,7 @@
 
 As of Dec 5th 2023, This design was not tested yet in a real circuit.
 
+<br>
 
 ## Description
 This example demostrates how to add addressing capabilities to a SPI bus such that a single set of CS/CLK/MOSI/MISO lines can be used to address multiple SPI devices, each having its own unique address on the base.
@@ -12,17 +13,22 @@ The addressing is done by prepending to each SPI transaction a byte whose 4 leas
 
 Each SPI device uses a SLG46826 SPLD which decodes the address in the first byte and passes the CS/CLK/MOSI signals to the SPI device only if they match the hard wired value of it's 4 address input pins. 
 
+<br>
+
 ## Notes
 
 * The SPLD does not process the MISO lines which should be connected directly to the SPI devices.
 * The current SPLD design support SPI Mode 0. Other modes can be supported in the same way.
 * The 4 address inputs are the same that are used by the SLG46826 I2C programming interface which allows to also programming the SLG46826s in-circuit using a single I2C bus.
 
+<br>
+
 ## Pinout
 
 
 <img src="./pinout.png" width=300 />
 
+<br>
 
 | Pin | Name         | Direction     | Description |
 |---|-----------|-----------|------------|
@@ -47,6 +53,7 @@ Each SPI device uses a SLG46826 SPLD which decodes the address in the first byte
 | 19 | |       | Unused. Leave unconnected.        |
 | 20 |VDD | power in     | 3.3V supply.        |
 
+<br>
 
 ## Timing Diagrams
 
@@ -54,10 +61,13 @@ Each SPI device uses a SLG46826 SPLD which decodes the address in the first byte
 
 ![](./timing_diag_address_mismatch.svg)
 
+<br>
+
 ## Schematic
 
 ![Mach](./schematic.png)
 
+<br>
 
 ## History
 * Dec 5th 2023 - Initial version of the document. 
