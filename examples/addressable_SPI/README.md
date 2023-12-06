@@ -56,7 +56,7 @@ Each SPI device uses a SLG46826 SPLD which decodes the address in the first byte
 
 ## Schematic
 
-![Mach](./schematic.png =250x400)
+![Mach](./schematic.png)
 
 
 ## History
