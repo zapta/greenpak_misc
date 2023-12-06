@@ -4,11 +4,11 @@
 { signal: [
   { name: 'cs_in',     wave: '10..................|...1' },
   { name: 'clk_in',     wave: 'l.hLhLhLhLhLhLhLhLhL|.hL.' },
-  { name: 'mosi_in',    wave: 'x.=.=.=.=.=.=.=.=.=.x|=.0.', data:['X', 'X','X','X','A3','A2','A1','A0','D0', 'Dn-1'], phase :0.9 },
+  { name: 'mosi_in',    wave: 'x.=.=.=.=.=.=.=.=.=.x|=.0.', data:['0', '0','0','0','A3','A2','A1','A0','D0', 'Dn-1'], phase :0.9 },
   {},
   { name: 'cs_out', wave: '1................0..|...1' },
   { name: 'clk_out',  wave: '0.................hL|.hL.' },
-  { name: 'mosi_out', wave: '0.................=.x|=.0.', data:['D0','Dn-1'], phase :0.9 }
+  { name: 'mosi_out', wave: 'z.................=.x|=..z', data:['D0','Dn-1'], phase :0.9 }
   ],
   config: {hscale: 1},
   head: {text: 'Address Match'}
