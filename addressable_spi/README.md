@@ -16,6 +16,10 @@ Each SPI device uses a SLG46826 SPLD which decodes the address in the first byte
 
 <br>
 
+<img src="./block_diagram.svg"  />
+
+<br>
+
 ## Notes
 
 - The SPLD does not process the MISO lines which should be connected directly to the SPI devices.
