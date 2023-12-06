@@ -59,11 +59,9 @@ Each SPI device uses a SLG46826 SPLD which decodes the address in the first byte
 
 <br>
 
-## Timing Diagrams
+## Timing Diagram
 
-![](./timing_diag_address_match.svg)
-
-![](./timing_diag_address_mismatch.svg)
+![](./timing_diagram.svg)
 
 <br>
 
