@@ -20,7 +20,9 @@ Each SPI device uses a SLG46826 SPLD which decodes the address in the first byte
 
 ## Pinout
 
-![Pinout](./pinout.png "a title")
+
+<img src="./pinout.png" width=300 />
+
 
 | Pin | Name         | Direction     | Description |
 |---|-----------|-----------|------------|
@@ -48,13 +50,13 @@ Each SPI device uses a SLG46826 SPLD which decodes the address in the first byte
 
 ## Timing Diagrams
 
-![Match](./timing_diag_address_match.svg "a title")
+![](./timing_diag_address_match.svg)
 
-![Match](./timing_diag_address_mismatch.svg "a title")
+![](./timing_diag_address_mismatch.svg)
 
 ## Schematic
 
-![Match](./schematic.png "a title")
+![Mach](./schematic.png =250x400)
 
 
 ## History
