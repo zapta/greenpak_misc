@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="12/9/23 12:46 AM" projectChecksumState="1" projectChecksum="66716860">
+<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="12/9/23 1:37 AM" projectChecksumState="1" projectChecksum="cba946d3">
     <generalProjectSettings/>
     <chip family="04" type="06" friendlyName="GreenPAK 6" partNumber="40" package="16">
         <nvmData registerLenght="2048">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 F0 FE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 30 30 30 30 0 0 30 30 30 0 30 30 30 30 30 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 6A 0 28 14 22 30 C 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 9B 0 1 0 0 0 2 1 0 0 2 0 1 0 0 2 1 0 0 2 0 1 0 0 2 1 0 0 2 0 1 0 0 2 0 1 0 0 0 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
@@ -41,7 +41,7 @@
         </IOPad>
         <IOPad id="7" useCaseMode="1">
             <item id="7" caption="PIN 13 (SCL)">
-                <graphics pos="(-669.30,-157.55)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
+                <graphics pos="(-671.57,-176.55)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
                 <textLabel pos="(6.30,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">SCL</textLabel>
             </item>
         </IOPad>
@@ -57,7 +57,7 @@
             </item>
         </IOPad>
         <item id="10" caption="GND (PIN 10)">
-            <graphics pos="(-586.80,144.03)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
+            <graphics pos="(-590.00,144.03)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
         </item>
         <IOPad id="11" useCaseMode="0">
             <item id="11" caption="PIN 9 (IO7)">
@@ -71,7 +71,7 @@
         </IOPad>
         <VDDItem id="13">
             <item id="13" caption="VDD2 (PIN 7)">
-                <graphics pos="(-587.77,86.30)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
+                <graphics pos="(-590.00,86.30)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
             </item>
         </VDDItem>
         <IOPad id="14" useCaseMode="0">
@@ -323,7 +323,7 @@
             </item>
         </CNTDLY>
         <wire output="147" input="111" autoRouting="1" pen="#ff8000ff;1.00;1;32;128" lineType="2" protected="1" CWLid="0" wireText="NET0" wireState="0">
-            <points>(-607.00,-147.00); (-570.00,-147.00)</points>
+            <points>(-610.00,-166.00); (-585.00,-166.00); (-585.00,-147.00); (-570.00,-147.00)</points>
         </wire>
         <wire output="148" input="112" autoRouting="1" pen="#ff8000ff;1.00;1;32;128" lineType="2" protected="1" CWLid="1" wireText="NET1" wireState="0">
             <points>(-607.00,-94.00); (-585.00,-94.00); (-585.00,-117.00); (-570.00,-117.00)</points>
@@ -541,7 +541,7 @@
     </emulatorConfiguration>
     <simulationConfiguration version="16" compatibleVersion="16" activePreset="-1">
         <draftPreset>
-            <simulationPreset index="-1" name="Default" customGroupLayout="false" customParametricDcGroupLayout="false">
+            <simulationPreset index="-1" name="Default" customGroupLayout="true" customParametricDcGroupLayout="false">
                 <transientAnalyses>
                     <transientAnalysis stopTime="4" maxTimeStep="100m" startTime="0" stepTime="100m" temperature="25" useInitialConditions="false" vdd="3.3"/>
                 </transientAnalyses>
@@ -558,16 +558,16 @@
                     </pinProbe>
                 </pinProbes>
                 <groups>
-                    <group name="GreenPAK -&gt; 1HZ [CNT0/DLY0/ FSM0 -&gt; OUT]" customGroupLayout="false">
+                    <group name="GreenPAK -&gt; 2HZ [OSC0 -&gt; CLK /512]" customGroupLayout="true">
                         <waveforms>
-                            <WaveformIdData analysisType="0" pinIdStr="2;16;0;0" xAxisBinding="0;;-1;-1;-1">
+                            <WaveformIdData analysisType="0" pinIdStr="0;21;0;10" xAxisBinding="0;;-1;-1;-1">
                                 <parameters/>
                             </WaveformIdData>
                         </waveforms>
                     </group>
-                    <group name="GreenPAK -&gt; 2HZ [OSC0 -&gt; CLK /512]" customGroupLayout="false">
+                    <group name="GreenPAK -&gt; 1HZ [CNT0/DLY0/ FSM0 -&gt; OUT]" customGroupLayout="false">
                         <waveforms>
-                            <WaveformIdData analysisType="0" pinIdStr="0;21;0;10" xAxisBinding="0;;-1;-1;-1">
+                            <WaveformIdData analysisType="0" pinIdStr="2;16;0;0" xAxisBinding="0;;-1;-1;-1">
                                 <parameters/>
                             </WaveformIdData>
                         </waveforms>
@@ -661,7 +661,7 @@
                                     <IdDto category="5" componentType="0" componentNumber="1" pinNumber="0"/>
                                 </to>
                                 <path>
-                                    <point value="(-610;155)"/>
+                                    <point value="(-613;155)"/>
                                     <point value="(-801;155)"/>
                                     <point value="(-801;171)"/>
                                 </path>
@@ -679,8 +679,8 @@
                                 </to>
                                 <path>
                                     <point value="(-684;68)"/>
-                                    <point value="(-627;68)"/>
-                                    <point value="(-627;41)"/>
+                                    <point value="(-626;68)"/>
+                                    <point value="(-626;41)"/>
                                     <point value="(-613;41)"/>
                                 </path>
                             </connection>
@@ -692,7 +692,7 @@
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="20"/>
                                 </to>
                                 <path>
-                                    <point value="(-611;97)"/>
+                                    <point value="(-613;97)"/>
                                     <point value="(-627;97)"/>
                                     <point value="(-627;41)"/>
                                     <point value="(-613;41)"/>
