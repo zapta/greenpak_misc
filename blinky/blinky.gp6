@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="12/9/2023 8:15 PM" projectChecksumState="1" projectChecksum="15e1b401">
+<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="12/9/2023 8:18 PM" projectChecksumState="1" projectChecksum="667fea0a">
     <generalProjectSettings/>
     <chip family="04" type="06" friendlyName="GreenPAK 6" partNumber="36" package="16">
         <nvmData registerLenght="2048">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 FE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 30 30 30 30 0 0 30 30 30 0 30 30 30 30 30 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A 0 0 14 22 30 C 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 20 0 1 0 0 0 2 1 10 0 E9 0 1 0 0 2 1 0 0 2 0 1 0 0 2 1 0 0 2 0 1 0 0 2 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
@@ -643,7 +643,7 @@
                             <param id="part_number" affinity="4" value="" defaultValue=""/>
                         </schematicProps>
                         <instanceProps>
-                            <param id="r" affinity="3" value="2k" defaultValue=""/>
+                            <param id="r" affinity="3" value="10k" defaultValue=""/>
                         </instanceProps>
                     </component>
                     <component simulationModel="" defaultSimulationModel="">
