@@ -18,13 +18,12 @@ import re
 # TODO: Add a more graceful handling of errors.
 # TODO: in __program_page(), use polling of write completion instead of a blind wait.
 # TODO: Add a file with the main() of the command line tool.
-# TODO: Better handling of non erasable reserved bits.
 
 
 def read_bits_file(file_name: str) -> bytearray:
     """Read an auto generated bit file and return as an array of 256 bytes"""
     result = bytearray()
-    f = open(file_name, 'r')
+    f = open(file_name, "r")
     first_line = True
     bits_read = 0
     byte_value = 0
@@ -32,9 +31,9 @@ def read_bits_file(file_name: str) -> bytearray:
         line = line.rstrip()
         # print(f"{bits_read}: {line}")
         if first_line:
-           assert re.match(r"index\s+value\s+comment", line)
-           first_line = False
-           continue
+            assert re.match(r"index\s+value\s+comment", line)
+            first_line = False
+            continue
         assert bits_read < 2048
         m = re.match(r"^([0-9]+)\s+([0|1])\s.*", line)
         assert m
@@ -54,16 +53,18 @@ def read_bits_file(file_name: str) -> bytearray:
     assert len(result) == 256
     return result
 
-def write_bits_file(file_name: str, data:bytearray) -> None:
+
+def write_bits_file(file_name: str, data: bytearray) -> None:
     """Write a 256 bytes GP configuration as a bits file."""
     assert len(data) == 256
-    with open(file_name, 'w') as f:
-      f.write('index\t\tvalue\t\tcomment\n')
-      for i in range(len(data) * 8):
-          byte_value = data[i // 8]
-          # Lease significant bit first.
-          bit_value = (byte_value >> (i % 8)) & 0x01
-          f.write(f"{i}\t\t{bit_value}\t\t//\n")
+    with open(file_name, "w") as f:
+        f.write("index\t\tvalue\t\tcomment\n")
+        for i in range(len(data) * 8):
+            byte_value = data[i // 8]
+            # Lease significant bit first.
+            bit_value = (byte_value >> (i % 8)) & 0x01
+            f.write(f"{i}\t\t{bit_value}\t\t//\n")
+
 
 def hex_dump(data: bytearray, start_addr: int = 0) -> None:
     """Dump a block of bytes in hex format."""
@@ -82,7 +83,6 @@ def hex_dump(data: bytearray, start_addr: int = 0) -> None:
                 items.append(f"{col_space}{data[addr - start_addr]:02x}")
         print(f"{row_addr:02x}: {" ".join(items)}", flush=True)
         row_addr += 16
-
 
 
 class MemorySpace(Enum):
@@ -172,6 +172,16 @@ class GreenPakI2cDriver:
         """Read an arbitrary block of bytes from device's EEPROM memory space."""
         return self.__read_bytes(MemorySpace.EEPROM, start_address, n)
 
+    def is_page_writeable(self, memory_space: MemoryError, page_id: int) -> bool:
+        """Returns true if the page is writable by the user."""
+        assert memory_space in (
+            MemorySpace.REGISTER,
+            MemorySpace.NVM,
+            MemorySpace.EEPROM,
+        )
+        assert 0 <= page_id <= 15
+        return memory_space != MemorySpace.NVM or page_id != 15
+
     def __write_bytes(
         self, memory_space: MemorySpace, start_address: int, data: bytearray
     ) -> None:
@@ -220,11 +230,11 @@ class GreenPakI2cDriver:
         return data
 
     def __erase_page(self, memory_space: MemorySpace, page_id: int) -> None:
-        """Erase a 16 bytes page of NVM or EEPROM spaces to all zeros"""
+        """Erase a 16 bytes page of NVM or EEPROM spaces to all zeros. Page must be writable"""
         assert memory_space in (MemorySpace.NVM, MemorySpace.EEPROM)
-        assert 0 <= page_id <= 15
+        assert self.is_page_writeable(memory_space, page_id)
 
-        # Erase only if needed
+        # Erase only if not already erased.
         if self.__is_page_erased(memory_space, page_id):
             print(f"Page {memory_space.name}/{page_id:02d} already erased.", flush=True)
             return
@@ -240,33 +250,27 @@ class GreenPakI2cDriver:
         time.sleep(0.025)
 
         # Verify that the page is all zeros.
-        # NOTE: Verifying doesn't works since some reserved bits may not
-        # be cleared.
-        if memory_space != MemorySpace.NVM and page_id != 15:
-          assert self.__is_page_erased(memory_space, page_id)
+        assert self.__is_page_erased(memory_space, page_id)
 
     def __is_page_erased(self, memory_space: MemorySpace, page_id: int) -> bool:
         """Returns true if all 16 bytes of given MVM or EEPROM page are zero.
-        Does not work for NVM pages with reserved bits that don't clear.
+        Page must be writable..
         """
-        # We fake it. This page cannot be fully erased due to reserved bits.
-        if memory_space != MemorySpace.NVM and page_id != 15:
-          return True
+        assert memory_space in (MemorySpace.NVM, MemorySpace.EEPROM)
+        assert self.is_page_writeable(memory_space, page_id)
 
         data = self.__read_page(memory_space, page_id)
-        # print(f"\nVerifying erased.", flush=True)
-        # self.hex_dump(data)
         return all(val == 0 for val in data)
 
     def __program_page(
         self, memory_space: MemorySpace, page_id: int, page_data: bytearray
     ) -> None:
-        """Program a NVM or EEPROM 16 bytes page."""
+        """Program a NVM or EEPROM 16 bytes page. Page must be writeable."""
         assert memory_space in (MemorySpace.NVM, MemorySpace.EEPROM)
-        assert 0 <= page_id <= 15
+        assert self.is_page_writeable(memory_space, page_id)
         assert len(page_data) == 16
 
-        # Do nothing if already has the desired value.
+        # Do nothing if the page already has the desired value.
         old_data = self.__read_page(memory_space, page_id)
         if old_data == page_data:
             print(f"Page {memory_space.name}/{page_id:02d} no change.", flush=True)
@@ -293,9 +297,8 @@ class GreenPakI2cDriver:
         #     assert elapsed_secs < 0.05
 
         # Read and verify the page's content.
-        if memory_space != MemorySpace.NVM and page_id != 15:
-          actual_page_data = self.__read_page(memory_space, page_id)
-          assert actual_page_data == page_data
+        actual_page_data = self.__read_page(memory_space, page_id)
+        assert actual_page_data == page_data
 
     def __program_pages(
         self, memory_space: MemorySpace, start_page_id: int, pages_data: bytearray
@@ -311,16 +314,11 @@ class GreenPakI2cDriver:
         assert 0 < num_pages
         assert start_page_id + num_pages <= 16
         for i in range(0, num_pages):
-            self.__program_page(
-                memory_space, start_page_id + i, pages_data[i << 4 : (i + 1) << 4]
-            )
-
-        # Verify all the pages at once, just in case.
-        # NOTE: Does not work well since some NCM reserved bits are non writable.
-        # actual_pages_data = self.__read_bytes(
-        #     memory_space, start_page_id << 4, len(pages_data)
-        # )
-        # assert actual_pages_data == pages_data
+            if not self.is_page_writeable(memory_space, i):
+                print(f"Page {memory_space.name}/{i} is not user writable, skipping.")
+            else:
+                page_data = pages_data[i << 4 : (i + 1) << 4]
+                self.__program_page(memory_space, start_page_id + i, page_data)
 
     def write_register_bytes(self, start_address: int, data: bytearray) -> None:
         """Write a block of bytes to device's Register (RAM) space."""
@@ -333,9 +331,9 @@ class GreenPakI2cDriver:
     def program_eeprom_pages(self, start_page_id: int, pages_data: bytearray) -> None:
         """Program one or mage 16 bytes pages of the EEPROM space."""
         self.__program_pages(MemorySpace.EEPROM, start_page_id, pages_data)
-        
-    def reset_device(self)->None:
-      """Reset the device, loading the NVM to the REGISTER"""
-      # Set register bit 1601 to reset the device.
-      self.write_register_bytes(0xc8, bytearray([0x02]))
-      time.sleep(0.1)
+
+    def reset_device(self) -> None:
+        """Reset the device, loading the NVM to the REGISTER"""
+        # Set register bit 1601 to reset the device.
+        self.write_register_bytes(0xC8, bytearray([0x02]))
+        time.sleep(0.1)

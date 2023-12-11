@@ -11,8 +11,8 @@ print()
 
 
 # Get the new program
-file_name = "data/blinky_nvm_fast.txt"
-# file_name = "data/blinky_nvm_slow.txt"
+file_name = "test_data/blinky_nvm_fast.txt"
+# file_name = "test_data/blinky_nvm_slow.txt"
 
 print(f"Loading file {file_name}")
 data = read_bits_file(file_name)
