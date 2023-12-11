@@ -2,9 +2,9 @@ from greenpack_i2c_driver import GreenPakI2cDriver, hex_dump, read_bits_file, wr
 import time
 
 
-data = read_bits_file("data/blinky.txt")
+data = read_bits_file("data/blinky_nvm.txt")
 hex_dump(data)
-write_bits_file("_kaka.txt", data)
+#write_bits_file("_kaka.txt", data)
 
 
 
