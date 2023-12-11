@@ -1,15 +1,39 @@
 from greenpack_i2c_driver import GreenPakI2cDriver, hex_dump, read_bits_file, write_bits_file
 import time
 
+gp = GreenPakI2cDriver(port="COM14", control_code=0b0001)
 
-data = read_bits_file("data/blinky_nvm.txt")
+# Dump the eeprom before.
+data = gp.read_nvm_bytes(0, 256)
+print(f"\nNVM before:")
 hex_dump(data)
+print()
+
+
+# Get the new program
+file_name = "data/blinky_nvm_fast.txt"
+# file_name = "data/blinky_nvm_slow.txt"
+
+print(f"Loading file {file_name}")
+data = read_bits_file(file_name)
+print(f"\nProgram file:")
+hex_dump(data)
+print()
+
+
 #write_bits_file("_kaka.txt", data)
 
 
+gp.program_nvm_pages(0, data)
 
+# Dump the eeprom after.
+data = gp.read_nvm_bytes(0, 256)
+print(f"\nNVM after:")
+hex_dump(data)
+print()
 
-# gp = GreenPakI2cDriver(port="COM14", control_code=0b0001)
+gp.reset_device()
+
 
 
 # # Dump the eeprom before.
