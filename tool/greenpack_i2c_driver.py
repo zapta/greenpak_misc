@@ -10,13 +10,11 @@ from typing import Optional, List, Tuple
 import time
 import re
 
-# TODO: Erase only if not already erased.
 # TODO: Handle and verify device ids.
 # TODO: Add prevention of bricking or locking.
 # TODO: Add high level operation such as setting the I2C address.
 # TODO: Convert the print messages to log messages.
 # TODO: Add a more graceful handling of errors.
-# TODO: in __program_page(), use polling of write completion instead of a blind wait.
 # TODO: Add a file with the main() of the command line tool.
 
 
@@ -247,6 +245,7 @@ class GreenPakI2cDriver:
         # print(f"ersr byte: {ersr_byte:02x}", flush=True)
         device_i2c_addr = self.__i2c_device_addr(MemorySpace.REGISTER)
         self.write_register_bytes(0xE3, bytearray([ersr_byte]))
+        # Allow the operation to complete. Datasheet says 20ms max.
         time.sleep(0.025)
 
         # Verify that the page is all zeros.
@@ -282,19 +281,8 @@ class GreenPakI2cDriver:
         # Write the new page data.
         print(f"Writing page {memory_space.name}/{page_id:02d}.")
         self.__write_bytes(memory_space, page_id << 4, page_data)
+        # Allow the operation to complete. Datasheet says 20ms max.
         time.sleep(0.025)
-
-        # Wait for completion. This is faster than a 20ms blind wait.
-        # device_i2c_addr = self.__i2c_device_addr(memory_space)
-        # start_time = time.time()
-        # while True:
-        #     ack: bool = self.__i2c.start(device_i2c_addr, 1)
-        #     self.__i2c.stop()
-        #     elapsed_secs = time.time() - start_time
-        #     if ack:
-        #         print(f"{memory_space}/{page_id} write completed in {elapsed_secs*1000:.0f}ms")
-        #         break
-        #     assert elapsed_secs < 0.05
 
         # Read and verify the page's content.
         actual_page_data = self.__read_page(memory_space, page_id)
@@ -336,4 +324,6 @@ class GreenPakI2cDriver:
         """Reset the device, loading the NVM to the REGISTER"""
         # Set register bit 1601 to reset the device.
         self.write_register_bytes(0xC8, bytearray([0x02]))
+        # Allow the operation to complete.
+        # TODO: Check with the datasheet what time period to use here.
         time.sleep(0.1)
