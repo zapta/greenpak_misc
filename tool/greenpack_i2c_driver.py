@@ -8,6 +8,7 @@ import i2cdriver
 from enum import Enum
 from typing import Optional, List, Tuple
 import time
+import re
 
 # TODO: Erase only if not already erased.
 # TODO: Handle and verify device ids.
@@ -17,6 +18,70 @@ import time
 # TODO: Add a more graceful handling of errors.
 # TODO: in __program_page(), use polling of write completion instead of a blind wait.
 # TODO: Add a file with the main() of the command line tool.
+
+
+def read_bits_file(file_name: str) -> bytearray:
+    """Read an auto generated bit file and return as an array of 256 bytes"""
+    result = bytearray()
+    f = open(file_name, 'r')
+    first_line = True
+    bits_read = 0
+    byte_value = 0
+    for line in f:
+        line = line.rstrip()
+        print(f"{bits_read}: {line}")
+        if first_line:
+           assert re.match(r"index\s+value\s+comment", line)
+           first_line = False
+           continue
+        assert bits_read < 2048
+        m = re.match(r"^([0-9]+)\s+([0|1])\s.*", line)
+        assert m
+        bit_index = int(m.group(1))
+        bit_value = int(m.group(2))
+        assert bit_index == bits_read
+        assert bit_value in (0, 1)
+        # Least signiificant bit first
+        byte_value = (byte_value >> 1) + (bit_value << 7)
+        assert 0 <= byte_value <= 255
+        bits_read += 1
+        # Handle last bit of a byte
+        if (bits_read % 8) == 0:
+            result.append(byte_value)
+            byte_value = 0
+    assert bits_read == 2048
+    assert len(result) == 256
+    return result
+
+def write_bits_file(file_name: str, data:bytearray) -> None:
+    """Write a 256 bytes GP configuration as a bits file."""
+    assert len(data) == 256
+    with open(file_name, 'w') as f:
+      f.write('index\t\tvalue\t\tcomment\n')
+      for i in range(len(data) * 8):
+          byte_value = data[i // 8]
+          # Lease significant bit first.
+          bit_value = (byte_value >> (i % 8)) & 0x01
+          f.write(f"{i}\t\t{bit_value}\t\t//\n")
+
+def hex_dump(data: bytearray, start_addr: int = 0) -> None:
+    """Dump a block of bytes in hex format."""
+    end_addr = start_addr + len(data)
+    row_addr = (start_addr // 16) * 16
+    while row_addr < end_addr:
+        items = []
+        for i in range(16):
+            addr = row_addr + i
+            col_space = " " if i % 4 == 0 else ""
+            if addr >= end_addr:
+                break
+            if addr < start_addr:
+                items.append(f"{col_space}  ")
+            else:
+                items.append(f"{col_space}{data[addr - start_addr]:02x}")
+        print(f"{row_addr:02x}: {" ".join(items)}", flush=True)
+        row_addr += 16
+
 
 
 class MemorySpace(Enum):
@@ -105,24 +170,6 @@ class GreenPakI2cDriver:
     def read_eeprom_bytes(self, start_address: int, n: int) -> bytearray:
         """Read an arbitrary block of bytes from device's EEPROM memory space."""
         return self.__read_bytes(MemorySpace.EEPROM, start_address, n)
-
-    def hex_dump(self, data: bytearray, start_addr: int = 0) -> None:
-        """Dump a block of bytes in hex format."""
-        end_addr = start_addr + len(data)
-        row_addr = (start_addr // 16) * 16
-        while row_addr < end_addr:
-            items = []
-            for i in range(16):
-                addr = row_addr + i
-                col_space = " " if i % 4 == 0 else ""
-                if addr >= end_addr:
-                    break
-                if addr < start_addr:
-                    items.append(f"{col_space}  ")
-                else:
-                    items.append(f"{col_space}{data[addr - start_addr]:02x}")
-            print(f"{row_addr:02x}: {" ".join(items)}", flush=True)
-            row_addr += 16
 
     def __write_bytes(
         self, memory_space: MemorySpace, start_address: int, data: bytearray
