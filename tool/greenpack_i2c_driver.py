@@ -108,20 +108,22 @@ class GreenPakI2cDriver:
         """Get the current GreenPAK device control code in use."""
         return self.__control_code
 
-    def __i2c_device_addr(self, memory_space: MemorySpace) -> int:
+    def __i2c_device_addr(self, memory_space: MemorySpace, control_code: int = None) -> int:
         """Constructs the I2C device address for the given memory space."""
         assert memory_space in (
             MemorySpace.REGISTER,
             MemorySpace.NVM,
             MemorySpace.EEPROM,
         )
-        assert 0 <= self.__control_code << 15
+        if  control_code is None:
+          control_code = self.__control_code
+        assert 0 <= control_code << 15
         memory_space_table = {
             MemorySpace.REGISTER: 0b000,
             MemorySpace.NVM: 0b010,
             MemorySpace.EEPROM: 0b011,
         }
-        device_i2c_addr = self.__control_code << 3 | memory_space_table[memory_space]
+        device_i2c_addr = control_code << 3 | memory_space_table[memory_space]
         assert 0 <= device_i2c_addr <= 127
         return device_i2c_addr
 
@@ -279,7 +281,7 @@ class GreenPakI2cDriver:
         self.__erase_page(memory_space, page_id)
 
         # Write the new page data.
-        print(f"Writing page {memory_space.name}/{page_id:02d}.")
+        print(f"Writing page {memory_space.name}/{page_id:02d}.", flush=True)
         self.__write_bytes(memory_space, page_id << 4, page_data)
         # Allow the operation to complete. Datasheet says 20ms max.
         time.sleep(0.025)
@@ -303,7 +305,7 @@ class GreenPakI2cDriver:
         assert start_page_id + num_pages <= 16
         for i in range(0, num_pages):
             if not self.is_page_writeable(memory_space, i):
-                print(f"Page {memory_space.name}/{i} is not user writable, skipping.")
+                print(f"Page {memory_space.name}/{i} is not user writable, skipping.", flush=True)
             else:
                 page_data = pages_data[i << 4 : (i + 1) << 4]
                 self.__program_page(memory_space, start_page_id + i, page_data)
@@ -327,3 +329,26 @@ class GreenPakI2cDriver:
         # Allow the operation to complete.
         # TODO: Check with the datasheet what time period to use here.
         time.sleep(0.1)
+        
+    def scan_device(self, control_code: int) -> bool:
+        """Test if a device exists at given control_code."""
+        assert 0 <= control_code <= 15
+        device_i2c_addr = self.__i2c_device_addr(MemorySpace.REGISTER, control_code)
+        ack1 = self.__i2c.start(device_i2c_addr, 0)
+        ack2 = self.__i2c.write([0])
+        self.__i2c.stop()
+        # print(f"{control_code} {device_i2c_addr:02x}, ack1 = {ack1}, ack2 = {ack2}")
+        return ack1 and ack2
+      
+    def scan_devices(self):
+      """Find control_codes with responding devices."""
+      result = []
+      for control_code in range(16):
+        if self.scan_device(control_code):
+          result.append(control_code)
+      return result
+    
+  
+          
+        
+      
