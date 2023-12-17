@@ -52,6 +52,20 @@ def read_out(port, index):
   return (value[0] >> (index % 8)) & 1
 
 #------------------------------------------------------------------------------
+
+def write_bits_file(file_name: str, data: bytearray) -> None:
+    """Write a 256 bytes GP configuration as a bits file."""
+    assert len(data) == 256
+    with open(file_name, "w") as f:
+        f.write("index\t\tvalue\t\tcomment\n")
+        for i in range(len(data) * 8):
+            byte_value = data[i // 8]
+            # Lease significant bit first.
+            bit_value = (byte_value >> (i % 8)) & 0x01
+            f.write(f"{i}\t\t{bit_value}\t\t//\n")
+
+#------------------------------------------------------------------------------
+
 config = """
 i2c.addr = 1 # default
 
@@ -96,26 +110,28 @@ code = slg46826.generate(config)
 print('--------------------------')
 print_array(code)
 
-#------------------------------------------------------------------------------
-port = serial.Serial('/dev/ttyACM0', 115200, timeout=0.5)
-#port = serial.Serial('COM27', 115200, timeout=0.5)
+write_bits_file("_out.txt", code)
 
-vs = i2c_read(port, 0, 256)
-#print_array(vs)
+# #------------------------------------------------------------------------------
+# port = serial.Serial('/dev/ttyACM0', 115200, timeout=0.5)
+# #port = serial.Serial('COM27', 115200, timeout=0.5)
 
-VIRT = 0x7a
+# vs = i2c_read(port, 0, 256)
+# #print_array(vs)
 
-i2c_write(port, VIRT, [0x11])
-print(hex(i2c_read(port, VIRT, 1)[0]))
+# VIRT = 0x7a
 
-i2c_write(port, VIRT, [0x22])
-print(hex(i2c_read(port, VIRT, 1)[0]))
+# i2c_write(port, VIRT, [0x11])
+# print(hex(i2c_read(port, VIRT, 1)[0]))
 
-i2c_write(port, VIRT, [0x33])
-print(hex(i2c_read(port, VIRT, 1)[0]))
+# i2c_write(port, VIRT, [0x22])
+# print(hex(i2c_read(port, VIRT, 1)[0]))
 
-i2c_write(port, 0, code[0:0xf1])
+# i2c_write(port, VIRT, [0x33])
+# print(hex(i2c_read(port, VIRT, 1)[0]))
 
-port.close()
+# i2c_write(port, 0, code[0:0xf1])
+
+# port.close()
 
 
