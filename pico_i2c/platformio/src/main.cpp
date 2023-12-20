@@ -65,6 +65,7 @@ static class EchoCommand : public Command {
   }
 } echo_command;
 
+
 // WRITE command.
 //
 // Returned status:
