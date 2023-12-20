@@ -92,7 +92,7 @@ static class WriteCommand : public Command {
       return false;
     }
     // I2C write to device.
-    const uint8_t write_addr = data_buffer[0] & !0x01;
+    const uint8_t write_addr = data_buffer[0] & ~0x01;
     Wire.clearTimeoutFlag();
     Wire.beginTransmission(write_addr);
     Wire.write(&data_buffer[2], count);
