@@ -9,8 +9,8 @@
 // https://www.arduino.cc/reference/en/language/functions/communication/wire/
 
 // All command bytes must arrive within this time period.
-// static constexpr uint32_t kCommandTimeoutMillis = 250;
-static constexpr uint32_t kCommandTimeoutMillis = 0xffffffff;
+static constexpr uint32_t kCommandTimeoutMillis = 250;
+// static constexpr uint32_t kCommandTimeoutMillis = 0xffffffff;
 
 static uint8_t data_buffer[500];
 
@@ -36,13 +36,6 @@ static void clear_input() {
   }
 }
 
-static uint8_t i2c_write(uint8_t addr, uint8_t* bfr, uint8_t count) {
-  Wire.beginTransmission(addr);
-  Wire.write(bfr, count);
-  const uint8_t status = Wire.endTransmission(true);
-  return status;
-}
-
 // Abstract base of all command handlers.
 class Command {
  public:
@@ -51,7 +44,7 @@ class Command {
   // Called each time the command starts to allow initialization.
   virtual void enter() {}
   // Returns true if command completed.
-  virtual bool loop() = 0;
+  virtual bool cmd_loop() = 0;
   // Call if the command is aborted due to timeout.
   virtual void abort() {}
 
@@ -59,51 +52,54 @@ class Command {
   const char* _name;
 };
 
-// // Handler for the do nothing command.
-// static class NopCommand : public Command {
-//  public:
-//   NopCommand() : Command("nop") {}
-//   virtual bool loop() { return true; }
-// } nop_command;
-
-// Handler for the 'echo' command which echoes the data byte.
+// ECHO command.
 static class EchoCommand : public Command {
  public:
   EchoCommand() : Command("echo") {}
-  virtual bool loop() override {
+  virtual bool cmd_loop() override {
     if (!read_input_bytes(data_buffer, 1)) {
       return false;
     }
-    // digitalWrite(LED_BUILTIN, true);
-    // for (;;) {
-    // }
-
-    // Serial.printf("[%02x]\n", data_buffer[0]);
     Serial.write(data_buffer[0]);
     return true;
   }
 } echo_command;
 
-// Handler for the 'start' command which sends the start byte of a read
-// or write transaction.
+// WRITE command.
+//
+// Returned status:
+//  0 : Success
+//  1 : Data too long
+//  2 : NACK on transmit of address
+//  3 : NACK on transmit of data
+//  4 : Other error
+//  5 : Timeout
 static class WriteCommand : public Command {
  public:
   WriteCommand() : Command("write") {}
   virtual void enter() override { _got_cmd_header = false; }
-  virtual bool loop() override {
+  virtual bool cmd_loop() override {
+    // Read command header.
     if (!_got_cmd_header) {
-      // Read address byte and count byte.
       if (!read_input_bytes(data_buffer, 2)) {
         return false;
       }
       _got_cmd_header = true;
     }
-    // Read (byte_count) bytes.
-    if (!read_input_bytes(&data_buffer[2], data_buffer[2])) {
+    // Read command data bytes.
+    const uint8_t count = data_buffer[1];
+    if (!read_input_bytes(&data_buffer[2], count)) {
       return false;
     }
-    const uint32_t status =
-        i2c_write(data_buffer[0], &data_buffer[2], data_buffer[2]);
+    // I2C write to device.
+    const uint8_t write_addr = data_buffer[0] & !0x01;
+    Wire.clearTimeoutFlag();
+    Wire.beginTransmission(write_addr);
+    Wire.write(&data_buffer[2], count);
+    const uint8_t status = Wire.endTransmission(true);
+
+    // Return response.
+    Serial.write(status ? 'E' : 'K');
     Serial.write(status);
     return true;
   }
@@ -113,26 +109,39 @@ static class WriteCommand : public Command {
 
 } start_command;
 
-// Handler for the 'read' command which reads N bytes.
+// READ command.
 static class ReadCommand : public Command {
  public:
   ReadCommand() : Command("read") {}
 
-  virtual bool loop() override {
-    // Get the address and the count bytes.
+  virtual bool cmd_loop() override {
+    // Get the command address and the count.
     if (!read_input_bytes(data_buffer, 2)) {
       return false;
     }
-    const uint8_t addr = data_buffer[0] | 0x01;
+    const uint8_t read_addr = data_buffer[0] | 0x01;
     const uint8_t count = data_buffer[1];
-    const size_t actual_count = Wire.requestFrom(addr, count, true);
+    Wire.clearTimeoutFlag();
+    const size_t actual_count = Wire.requestFrom(read_addr, count, true);
     // Send error response.
-    if (actual_count != count || Wire.available() != count) {
-      Serial.write("F");
+    const bool had_timeout = Wire.getTimeoutFlag();
+    uint8_t status = 0x00;
+    if (actual_count != count) {
+      status |= 0x01;
+    }
+    if (Wire.available() != count) {
+      status != 0x02;
+    }
+    if (Wire.getTimeoutFlag()) {
+      status != 4;
+    }
+    if (status != 0) {
+      Serial.write("E");
+      Serial.write(status);
       return true;
     }
-    // Send OK response with the data read
-    Serial.write("P");
+    // Here when OK, send status, count, and data.
+    Serial.write("K");
     Serial.write(count);
     for (uint16_t i = 0; i < count; i++) {
       Serial.write(Wire.read());
@@ -163,14 +172,9 @@ void setup() {
   // USB serial.
   Serial.begin(115200);
 
-  // Hardware serial.
-  Serial1.setFIFOSize(1024);
-  Serial1.begin(115200);
-
-  // Wire.setSDA(0);
-  // Wire.setSCL(1);
   // Pins are SD=4, SCL=5
-  Wire.setClock(100000);
+  Wire.setClock(100000);         // 100Khz.
+  Wire.setTimeout(50000, true);  // 50ms timeout. Reset on timeout.
   Wire.begin();
 }
 
@@ -183,14 +187,15 @@ void loop() {
 
   Serial.flush();
   const uint32_t millis_now = millis();
-  const bool blink = current_cmd || (millis_now - last_command_start_millis) < 200;
+  const bool blink =
+      current_cmd || (millis_now - last_command_start_millis) < 200;
   // millis_now & 0x0040 : millis_now & 0x0100;
   // const bool blink = current_cmd;
   digitalWrite(LED_BUILTIN, blink);
 
   // If a command is in progress, handle it.
   if (current_cmd) {
-    const bool cmd_completed = current_cmd->loop();
+    const bool cmd_completed = current_cmd->cmd_loop();
     if (cmd_completed) {
       // Serial.println("Completed");
       current_cmd = nullptr;
