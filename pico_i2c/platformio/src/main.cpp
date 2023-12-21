@@ -4,6 +4,11 @@
 
 // TODO: Add static asserts about the buffer size.
 // TODO: Clear i2c available buffer before i2c read operation.
+// TODO: Determine optimal led blinking policy.
+// TODO: Investigate if we get a better resolution or failure errors.
+// TODO: Add a RESET command.
+// TODO: Add an INFO command, with version, etc.
+// TODO: Add support for pullup control.
 
 // NOTE: Arduino Wire API documentation is here
 // https://www.arduino.cc/reference/en/language/functions/communication/wire/
@@ -27,45 +32,49 @@ static bool read_input_bytes(uint8_t* bfr, uint16_t n) {
 
   // TODO: Verify actual read == n;
   size_t actual_read = Serial.readBytes(bfr, n);
-  (void) actual_read;
+  (void)actual_read;
   return true;
 }
 
-// static void clear_input() {
-//   while (Serial.available() > 0) {
-//     Serial.read();
-//   }
-// }
-
 // Abstract base of all command handlers.
-class Command {
+class CommandHandler {
  public:
-  Command(const char* name) : _name(name) {}
-  const char* name() const { return _name; }
+  CommandHandler(const char* name) : _name(name) {}
+  const char* cmd_name() const { return _name; }
   // Called each time the command starts to allow initialization.
-  virtual void enter() {}
+  virtual void on_cmd_entered() {}
   // Returns true if command completed.
-  virtual bool cmd_loop() = 0;
+  virtual bool on_cmd_loop() = 0;
   // Call if the command is aborted due to timeout.
-  virtual void abort() {}
+  virtual void on_cmd_aborted() {}
 
  private:
   const char* _name;
 };
 
 // ECHO command.
-static class EchoCommand : public Command {
+static class EchoCommandHandler : public CommandHandler {
  public:
-  EchoCommand() : Command("echo") {}
-  virtual bool cmd_loop() override {
+  EchoCommandHandler() : CommandHandler("ECHO") {}
+  virtual bool on_cmd_loop() override {
     if (!read_input_bytes(data_buffer, 1)) {
       return false;
     }
     Serial.write(data_buffer[0]);
     return true;
   }
-} echo_command;
+} echo_cmd_handler;
 
+// INFO command.
+static class InfoCommandHandler : public CommandHandler {
+ public:
+  InfoCommandHandler() : CommandHandler("INFO") {}
+  virtual bool on_cmd_loop() override {
+    Serial.write(0x01);  // Number of bytes to follow.
+    Serial.write(0x01);  // API version.
+    return true;
+  }
+} info_cmd_handler;
 
 // WRITE command.
 //
@@ -76,11 +85,11 @@ static class EchoCommand : public Command {
 //  3 : NACK on transmit of data
 //  4 : Other error
 //  5 : Timeout
-static class WriteCommand : public Command {
+static class WriteCommandHandler : public CommandHandler {
  public:
-  WriteCommand() : Command("write") {}
-  virtual void enter() override { _got_cmd_header = false; }
-  virtual bool cmd_loop() override {
+  WriteCommandHandler() : CommandHandler("WRITE") {}
+  virtual void on_cmd_entered() override { _got_cmd_header = false; }
+  virtual bool on_cmd_loop() override {
     // Read command header.
     if (!_got_cmd_header) {
       if (!read_input_bytes(data_buffer, 2)) {
@@ -109,14 +118,14 @@ static class WriteCommand : public Command {
  private:
   bool _got_cmd_header = false;
 
-} start_command;
+} write_cmd_handler;
 
 // READ command.
-static class ReadCommand : public Command {
+static class ReadCommandHandler : public CommandHandler {
  public:
-  ReadCommand() : Command("read") {}
+  ReadCommandHandler() : CommandHandler("READ") {}
 
-  virtual bool cmd_loop() override {
+  virtual bool on_cmd_loop() override {
     // Get the command address and the count.
     if (!read_input_bytes(data_buffer, 2)) {
       return false;
@@ -151,18 +160,20 @@ static class ReadCommand : public Command {
     return true;
   }
 
-} read_command;
+} read_cmd_handler;
 
 // Given a command char, return a Command pointer or null if invalid command
 // char.
-static Command* find_command_by_char(const char cmd_char) {
+static CommandHandler* find_command_handler_by_char(const char cmd_char) {
   switch (cmd_char) {
     case 'e':
-      return &echo_command;
+      return &echo_cmd_handler;
+    case 'i':
+      return &info_cmd_handler;
     case 'w':
-      return &start_command;
+      return &write_cmd_handler;
     case 'r':
-      return &read_command;
+      return &read_cmd_handler;
     default:
       return nullptr;
   }
@@ -176,12 +187,12 @@ void setup() {
 
   // Pins are SD=4, SCL=5
   Wire.setClock(100000);   // 100Khz.
-  Wire.setTimeout(50000);  // 50ms timeout. 
+  Wire.setTimeout(50000);  // 50ms timeout.
   Wire.begin();
 }
 
 // If in command, points to the command handler.
-static Command* current_cmd = nullptr;
+static CommandHandler* current_cmd = nullptr;
 
 void loop() {
   // Serial.printf("Loop %s\n", current_cmd? current_cmd->name() : "-");
@@ -197,28 +208,28 @@ void loop() {
 
   // If a command is in progress, handle it.
   if (current_cmd) {
-    const bool cmd_completed = current_cmd->cmd_loop();
+    const bool cmd_completed = current_cmd->on_cmd_loop();
     if (cmd_completed) {
-      // Serial.println("Completed");
       current_cmd = nullptr;
     } else if (millis() - last_command_start_millis > kCommandTimeoutMillis) {
-      // Serial.println("Cmd timeout");
-      current_cmd->abort();
+      current_cmd->on_cmd_aborted();
       current_cmd = nullptr;
     }
     return;
   }
 
-  // Not in a command. If a command char arrived, dispatch the command.
+  // Not in a command. Test if a char arrived to select the next command.
   if (!Serial.available()) {
     return;
   }
 
+  // Dispatch the next command.
   const char cmd_char = Serial.read();
-  current_cmd = find_command_by_char(cmd_char);
-  // Enter the command or ignore the unknown char silently.
+  current_cmd = find_command_handler_by_char(cmd_char);
   if (current_cmd) {
     last_command_start_millis = millis_now;
-    current_cmd->enter();
+    current_cmd->on_cmd_entered();
+  } else {
+    // Unknown command selector. We ignore it silently.
   }
 }
