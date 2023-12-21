@@ -102,10 +102,10 @@ static class WriteCommandHandler : public CommandHandler {
     if (!read_input_bytes(&data_buffer[2], count)) {
       return false;
     }
-    // I2C write to device.
-    const uint8_t write_addr = data_buffer[0] & ~0x01;
+    // Device address is 7 bits LSB.
+    const uint8_t device_addr = data_buffer[0];
     // Wire.clearTimeoutFlag();
-    Wire.beginTransmission(write_addr);
+    Wire.beginTransmission(device_addr);
     Wire.write(&data_buffer[2], count);
     const uint8_t status = Wire.endTransmission(true);
 
@@ -130,10 +130,12 @@ static class ReadCommandHandler : public CommandHandler {
     if (!read_input_bytes(data_buffer, 2)) {
       return false;
     }
-    const uint8_t read_addr = data_buffer[0] | 0x01;
+
+    // Device address is 7 bits LSB.
+    const uint8_t device_addr = data_buffer[0];
     const uint8_t count = data_buffer[1];
     // Wire.clearTimeoutFlag();
-    const size_t actual_count = Wire.requestFrom(read_addr, count, true);
+    const size_t actual_count = Wire.requestFrom(device_addr, count, true);
     // Send error response.
     // const bool had_timeout = Wire.getTimeoutFlag();
     uint8_t status = 0x00;
@@ -143,9 +145,6 @@ static class ReadCommandHandler : public CommandHandler {
     if (Wire.available() != count) {
       status |= 0x02;
     }
-    // if (Wire.getTimeoutFlag()) {
-    //   status != 4;
-    // }
     if (status != 0) {
       Serial.write("E");
       Serial.write(status);
