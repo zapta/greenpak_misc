@@ -18,23 +18,24 @@ static uint32_t last_command_start_millis = 0;
 
 // Read exactly n chanrs to data buffer. If not enough bytes, none is read
 // and the function returns false.
-static bool read_input_bytes(uint8_t* bfr, uint32_t n) {
+static bool read_input_bytes(uint8_t* bfr, uint16_t n) {
   // Handle the case where not enough chars.
   const int avail = Serial.available();
-  if (avail < n) {
+  if (avail < (int)n) {
     return false;
   }
 
-  // We assume that exactly n bytes were read.
-  size_t actual_read = Serial.read(bfr, n);
+  // TODO: Verify actual read == n;
+  size_t actual_read = Serial.readBytes(bfr, n);
+  (void) actual_read;
   return true;
 }
 
-static void clear_input() {
-  while (Serial.available() > 0) {
-    Serial.read();
-  }
-}
+// static void clear_input() {
+//   while (Serial.available() > 0) {
+//     Serial.read();
+//   }
+// }
 
 // Abstract base of all command handlers.
 class Command {
@@ -94,7 +95,7 @@ static class WriteCommand : public Command {
     }
     // I2C write to device.
     const uint8_t write_addr = data_buffer[0] & ~0x01;
-    Wire.clearTimeoutFlag();
+    // Wire.clearTimeoutFlag();
     Wire.beginTransmission(write_addr);
     Wire.write(&data_buffer[2], count);
     const uint8_t status = Wire.endTransmission(true);
@@ -122,20 +123,20 @@ static class ReadCommand : public Command {
     }
     const uint8_t read_addr = data_buffer[0] | 0x01;
     const uint8_t count = data_buffer[1];
-    Wire.clearTimeoutFlag();
+    // Wire.clearTimeoutFlag();
     const size_t actual_count = Wire.requestFrom(read_addr, count, true);
     // Send error response.
-    const bool had_timeout = Wire.getTimeoutFlag();
+    // const bool had_timeout = Wire.getTimeoutFlag();
     uint8_t status = 0x00;
     if (actual_count != count) {
       status |= 0x01;
     }
     if (Wire.available() != count) {
-      status != 0x02;
+      status |= 0x02;
     }
-    if (Wire.getTimeoutFlag()) {
-      status != 4;
-    }
+    // if (Wire.getTimeoutFlag()) {
+    //   status != 4;
+    // }
     if (status != 0) {
       Serial.write("E");
       Serial.write(status);
@@ -174,8 +175,8 @@ void setup() {
   Serial.begin(115200);
 
   // Pins are SD=4, SCL=5
-  Wire.setClock(100000);         // 100Khz.
-  Wire.setTimeout(50000, true);  // 50ms timeout. Reset on timeout.
+  Wire.setClock(100000);   // 100Khz.
+  Wire.setTimeout(50000);  // 50ms timeout. 
   Wire.begin();
 }
 
