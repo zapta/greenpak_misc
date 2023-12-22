@@ -1,4 +1,4 @@
-#include <Adafruit_TinyUSB.h>
+// #include <Adafruit_TinyUSB.h>
 #include <Arduino.h>
 #include <Wire.h>
 
@@ -179,6 +179,7 @@ static CommandHandler* find_command_handler_by_char(const char cmd_char) {
 }
 
 void setup() {
+  // SerialUSB.begin(19200);
   pinMode(LED_BUILTIN, OUTPUT);
 
   // USB serial.
