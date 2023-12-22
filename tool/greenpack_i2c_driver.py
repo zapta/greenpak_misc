@@ -4,12 +4,14 @@
 # https://www.renesas.com/us/en/document/mat/system-programming-guide-slg468246?r=1572991
 # https://www.renesas.com/us/en/document/mat/slg47004-system-programming-guide?r=1572991
 
-import i2cdriver
+# import i2cdriver
+from i2c_pico_driver import I2cPicoDriver
 from enum import Enum
 from typing import Optional, List, Tuple
 import time
 import re
 
+# TODO: Fix the 255 count limit issue.
 # TODO: Handle and verify device ids.
 # TODO: Add prevention of bricking or locking.
 # TODO: Add high level operation such as setting the I2C address.
@@ -97,7 +99,8 @@ class GreenPakI2cDriver:
     def __init__(self, port: str, control_code=0b0001):
         """Initialize using a I2CDrivcer serial port and GreenPAK device control code.."""
         self.set_control_code(control_code)
-        self.__i2c = i2cdriver.I2CDriver(port, reset=False)
+        # self.__i2c = i2cdriver.I2CDriver(port, reset=False)
+        self.__i2c:I2cPicoDriver = I2cPicoDriver(port)
 
     def set_control_code(self, control_code: int) -> None:
         """Set the GreenPAK device control code to use. Should be in [0, 15]"""
@@ -145,18 +148,22 @@ class GreenPakI2cDriver:
         device_i2c_addr = self.__i2c_device_addr(memory_space)
 
         # Write the start address to read.
-        ack = self.__i2c.start(device_i2c_addr, 0)
-        assert ack
-        ack = self.__i2c.write([start_address])
-        assert ack
+        ok = self.__i2c.i2c_write(device_i2c_addr, bytearray([start_address]))
+        assert ok
+        # ack = self.__i2c.start(device_i2c_addr, 0)
+        # assert ack
+        # ack = self.__i2c.write([start_address])
+        # assert ack
         # self.__i2c.stop()
 
         # Start again (with no stop) to read the N bytes
-        ack = self.__i2c.start(device_i2c_addr, 1)
-        assert ack
-        resp_bytes = self.__i2c.read(n)
-        self.__i2c.stop()
+        resp_bytes = self.__i2c.i2c_read(device_i2c_addr, n)
+        # ack = self.__i2c.start(device_i2c_addr, 1)
+        # assert ack
+        # resp_bytes = self.__i2c.read(n)
+        # self.__i2c.stop()
 
+        assert resp_bytes is not None
         assert n == len(resp_bytes)
         return resp_bytes
 
@@ -214,11 +221,12 @@ class GreenPakI2cDriver:
         payload.extend(data)
 
         # Write the data
-        ack = self.__i2c.start(device_i2c_addr, 0)
-        assert ack
-        ack = self.__i2c.write(bytearray(payload))
-        assert ack
-        self.__i2c.stop()
+        ok = self.__i2c.write(device_i2c_addr, bytearray(payload))
+        assert ok
+        # assert ack
+        # ack = self.__i2c.write(bytearray(payload))
+        # assert ack
+        # self.__i2c.stop()
 
     def __read_page(self, memory_space: MemorySpace, page_id: int) -> bool:
         """Read a 16 bytes page of a NVM or EEPROM memory spaces."""
@@ -334,11 +342,13 @@ class GreenPakI2cDriver:
         """Test if a device exists at given control_code."""
         assert 0 <= control_code <= 15
         device_i2c_addr = self.__i2c_device_addr(MemorySpace.REGISTER, control_code)
-        ack1 = self.__i2c.start(device_i2c_addr, 0)
-        ack2 = self.__i2c.write([0])
-        self.__i2c.stop()
+        ok = self.__i2c.i2c_write(device_i2c_addr, bytearray([0]))
+        # ack1 = self.__i2c.start(device_i2c_addr, 0)
+        # ack2 = self.__i2c.write([0])
+        # self.__i2c.stop()
         # print(f"{control_code} {device_i2c_addr:02x}, ack1 = {ack1}, ack2 = {ack2}")
-        return ack1 and ack2
+        # return ack1 and ack2
+        return ok
       
     def scan_devices(self):
       """Find control_codes with responding devices."""

@@ -6,7 +6,7 @@ from greenpack_i2c_driver import (
 )
 import time
 
-gp = GreenPakI2cDriver(port="COM14", control_code=0b0001)
+gp = GreenPakI2cDriver(port="COM17", control_code=0b0001)
 
 # Scan and print available greenpack devices.
 control_codes = gp.scan_devices()
