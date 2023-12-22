@@ -1,7 +1,9 @@
 Dec 2023. 
 
 This windows driver was downloaded from https://github.com/arduino/ArduinoCore-mbed/tree/2.0.0/drivers
-and it solved the automatic upload issue with the Arduino framework.
+and it solved the automatic upload issue with the Arduino framework. Platformio also provide these 
+drivers at ~/.platformio/packages/framework-arduino-mbed/drivers.
+
 
 Installation method 1 
 1. Connect the RPI Pico with the button pressed to enter the upload mode.
