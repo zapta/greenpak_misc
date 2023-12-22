@@ -183,6 +183,7 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 
   // USB serial.
+  // Per https://arduino-pico.readthedocs.io/en/latest/serial.html
   Serial.begin(115200);
 
   // Pins are SD=4, SCL=5
