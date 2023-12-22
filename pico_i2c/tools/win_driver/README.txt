@@ -1,5 +1,10 @@
 Dec 2023. 
 
+EDIT: Per http://tinyurl.com/arduino-pico-zadig, on Windows use Zadig to set “RP2 Boot2 (Interface 1)”
+“WinUSB”, while the Pico is in boot mode (power on with button pressed). Alternativly install the Arduino
+drivers as described below.
+
+
 This windows driver was downloaded from https://github.com/arduino/ArduinoCore-mbed/tree/2.0.0/drivers
 and it solved the automatic upload issue with the Arduino framework. Platformio also provide these 
 drivers at ~/.platformio/packages/framework-arduino-mbed/drivers.
