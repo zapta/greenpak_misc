@@ -16,6 +16,7 @@ Run the dpinst-*.exe from https://github.com/arduino/ArduinoCore-mbed/tree/2.0.0
 that is approriate to your sys tem.
 
 Installation method 3
-Install the arduino IDE and install from the Board Manager, Arduino Mbed OS Nano Boards (by Arduino).
+Install the arduino IDE and install from the Board Manager 'Arduino Mbed OS Nano Boards by Arduino'.
+Note that as of Dec 2023, installing from the Board Manager Arduino MBed OS RP2040 by Arduino' doesn't install these drivers.  
 
 
