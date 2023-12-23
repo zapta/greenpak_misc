@@ -76,6 +76,30 @@ static class EchoCommandHandler : public CommandHandler {
   }
 } echo_cmd_handler;
 
+// RESET command. Clears pending errors. Used for the Greenpack
+// erase errata.
+//
+// Command:
+// - byte 0:  't'
+//
+// Response:
+// - byte 0:  'K' to indicate OK. This command doesn't fail.
+//
+static class ResetCommandHandler : public CommandHandler {
+ public:
+  ResetCommandHandler() : CommandHandler("RESET") {}
+  virtual bool on_cmd_loop() override {
+    Wire.end();
+    Wire.begin();
+    // static_assert(sizeof(data_buffer) >= 1);
+    // if (!read_input_bytes(data_buffer, 1)) {
+    //   return false;
+    // }
+    Serial.write('K');
+    return true;
+  }
+} reset_cmd_handler;
+
 // INFO command. Provides information about this driver. Currently
 // it's a skeleton for future values that will be returned.
 //
@@ -128,6 +152,9 @@ static class WriteCommandHandler : public CommandHandler {
     _got_cmd_header = false;
     _device_addr = 0;
     _count = 0;
+    // Temp, testing the errata workaround
+    // Wire.end();
+    // Wire.begin();
   }
   virtual bool on_cmd_loop() override {
     // Read command header.
@@ -144,7 +171,7 @@ static class WriteCommandHandler : public CommandHandler {
     // Validate the command header.
     uint8_t status = (_device_addr > 127) ? 0x08 : (_count > 512) ? 0x09 : 0x00;
     if (status != 0x00) {
-      Serial.write("E");
+      Serial.write('E');
       Serial.write(status);
       return true;
     }
@@ -155,6 +182,8 @@ static class WriteCommandHandler : public CommandHandler {
       return false;
     }
 
+    // Clear previous write errors.
+    //
     // Serial.print("["); Serial.print(_device_addr); Serial.print("]");
     // Serial.print("["); Serial.print(_count); Serial.print("]");
     // Serial.print("["); Serial.print(data_buffer[0]); Serial.print("]");
@@ -167,11 +196,16 @@ static class WriteCommandHandler : public CommandHandler {
     Wire.write(data_buffer, _count);
     status = Wire.endTransmission(true);
 
+    // NOTE: Due to this Erata, some GreenPacks may not nack when we write
+    // to the erase byte. We want to let the user to ignore this error as a 
+    // woraround.
+    // TODO: What do we want to do here with Wire.getTimeout()?
+    
     // All done
     if (status == 0x00) {
-      Serial.write("K");
+      Serial.write('K');
     } else {
-      Serial.write("E");
+      Serial.write('E');
       Serial.write(status);
     }
     return true;
@@ -226,7 +260,7 @@ static class ReadCommandHandler : public CommandHandler {
     const uint16_t count = (((uint16_t)data_buffer[1]) << 8) + data_buffer[2];
     uint8_t status = (device_addr > 127) ? 0x08 : (count > 512) ? 0x09 : 0x00;
     if (status != 0x00) {
-      Serial.write("E");
+      Serial.write('E');
       Serial.write(status);
       return true;
     }
@@ -239,13 +273,13 @@ static class ReadCommandHandler : public CommandHandler {
              : (Wire.available() != count) ? 0x02
                                            : 0x00;
     if (status != 0x00) {
-      Serial.write("E");
+      Serial.write('E');
       Serial.write(status);
       return true;
     }
 
     // Here when OK, send status, count, and data.
-    Serial.write("K");
+    Serial.write('K');
     // Serial.print("["); Serial.print(count); Serial.print("]");
     Serial.write(count >> 8);
     Serial.write(count & 0x00ff);
@@ -263,6 +297,8 @@ static CommandHandler* find_command_handler_by_char(const char cmd_char) {
   switch (cmd_char) {
     case 'e':
       return &echo_cmd_handler;
+    case 't':
+      return &reset_cmd_handler;
     case 'i':
       return &info_cmd_handler;
     case 'w':
@@ -305,11 +341,12 @@ void loop() {
 
   // If a command is in progress, handle it.
   if (current_cmd) {
-    const bool cmd_completed = current_cmd->on_cmd_loop();
-    if (cmd_completed) {
-      current_cmd = nullptr;
-    } else if (millis() - last_command_start_millis > kCommandTimeoutMillis) {
+    bool cmd_completed = current_cmd->on_cmd_loop();
+    if (!cmd_completed && (millis() - last_command_start_millis > kCommandTimeoutMillis)) {
       current_cmd->on_cmd_aborted();
+      cmd_completed = true;
+    }
+    if (cmd_completed) {
       current_cmd = nullptr;
     }
     return;
@@ -325,6 +362,8 @@ void loop() {
   // const char cmd_char = Serial.read();
   current_cmd = find_command_handler_by_char(data_buffer[0]);
   if (current_cmd) {
+    // Clear potential I2C errors.
+    // Wire.clearWriteError();
     // Started a new command.
     last_command_start_millis = millis_now;
     current_cmd->on_cmd_entered();

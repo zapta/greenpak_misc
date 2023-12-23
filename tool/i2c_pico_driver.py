@@ -35,15 +35,31 @@ class I2cPicoDriver:
         to test the connection to the driver."""
         assert isinstance(b, int)
         assert 0 <= b <= 256
-        payload = bytearray()
+        req = bytearray()
         # print(f"Type: {type(ord("e"))}")
-        payload.append(ord("e"))
-        payload.append(b)
-        self.__serial.write(bytearray([ord("e"), b]))
+        req.append(ord("e"))
+        req.append(b)
+        self.__serial.write(req)
         resp = self.__serial.read(1)
         assert isinstance(resp, bytes), type(resp)
         assert len(resp) == 1
         return resp[0] == b
+      
+    def i2c_reset(self) -> bool:
+        """Reset the I2C interface. used to clear pending errors."""
+        # assert isinstance(b, int)
+        # assert 0 <= b <= 256
+        req = bytearray()
+        # print(f"Type: {type(ord("e"))}")
+        req.append(ord("t"))
+        # payload.append(b)
+        # print(f"Reset payload: {payload.hex(sep=" ")}")
+        self.__serial.write(req)
+        resp = self.__serial.read(1)
+        assert isinstance(resp, bytes), type(resp)
+        assert len(resp) == 1
+        # print(f"Reset resp: {resp.hex(sep=" ")}")
+        return resp[0] == ord("K")
 
     def i2c_write(self, device_address: int, data: bytearray) -> bool:
         """Write data to the I2C device, return True if ok."""
@@ -53,21 +69,21 @@ class I2cPicoDriver:
         assert 0 < len(data) <= 256
 
         # Construct and send the command.
-        payload = bytearray()
-        payload.append(ord("w"))
-        payload.append(device_address)
-        payload.append(len(data) // 256)
-        payload.append(len(data) % 256)
-        payload.extend(data)
-        n = self.__serial.write(payload)
-        print(f"write: payload {payload.hex(sep=" ")}", flush=True)
-        if n != len(payload):
-            print(f"I2C write: write mismatch, expected {len(payload)}, got {n}")
+        req = bytearray()
+        req.append(ord("w"))
+        req.append(device_address)
+        req.append(len(data) // 256)
+        req.append(len(data) % 256)
+        req.extend(data)
+        n = self.__serial.write(req)
+        # print(f"write: payload {payload.hex(sep=" ")}", flush=True)
+        if n != len(req):
+            print(f"I2C write: write mismatch, expected {len(req)}, got {n}")
             return False
 
         # Read the status flag.
         resp = self.__serial.read(1)
-        print(f"write: resp1: {resp.hex(sep=" ")}")
+        # print(f"write: resp1: {resp.hex(sep=" ")}")
         assert isinstance(data, bytearray), type(data)
         if len(resp) != 1:
             print(f"I2C write: status read mismatch, expected {1}, got {len(resp)}")
@@ -81,12 +97,13 @@ class I2cPicoDriver:
         # Read the extra info status byte.
         resp = self.__serial.read(1)
         assert isinstance(data, bytearray), type(data)
-        print(f"write: resp2: {resp.hex(sep=" ")}")
+        # print(f"write: resp2: {resp.hex(sep=" ")}")
         if len(resp) != 1:
             print(
                 f"I2C write: extra status read mismatch, expected {1}, got {len(resp)}"
             )
             return False
+        # if not workaround:
         print(f"I2C write: failed with status = {resp[0]:02x}")
         return False
 
@@ -98,14 +115,14 @@ class I2cPicoDriver:
         assert 0 < byte_count <= 256
 
         # Construct and send the command
-        payload = bytearray()
-        payload.append(ord("r"))
-        payload.append(device_address)
-        payload.append(byte_count // 256)
-        payload.append(byte_count % 256)
-        n = self.__serial.write(payload)
-        if n != len(payload):
-            print(f"I2C read: write mismatch, expected {len(payload)}, got {n}")
+        req = bytearray()
+        req.append(ord("r"))
+        req.append(device_address)
+        req.append(byte_count // 256)
+        req.append(byte_count % 256)
+        n = self.__serial.write(req)
+        if n != len(req):
+            print(f"I2C read: write mismatch, expected {len(req)}, got {n}")
             return None
 
         # Read status flag.

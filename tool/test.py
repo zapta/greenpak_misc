@@ -26,7 +26,7 @@ print()
 
 # Load the new program from disk. 
 file_name = "test_data/blinky_nvm_fast.txt"
-file_name = "test_data/blinky_nvm_slow.txt"
+# file_name = "test_data/blinky_nvm_slow.txt"
 print(f"Loading file {file_name}")
 data = read_bits_file(file_name)
 print(f"\nProgram loaded from file:")

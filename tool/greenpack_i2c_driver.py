@@ -18,6 +18,7 @@ import re
 # TODO: Convert the print messages to log messages.
 # TODO: Add a more graceful handling of errors.
 # TODO: Add a file with the main() of the command line tool.
+# TODO: Find a cleaner way to handle the errata.
 
 
 def read_bits_file(file_name: str) -> bytearray:
@@ -254,11 +255,17 @@ class GreenPakI2cDriver:
         ersr_byte = msb | page_id
         # print(f"ersr byte: {ersr_byte:02x}", flush=True)
         device_i2c_addr = self.__i2c_device_addr(MemorySpace.REGISTER)
+        # TODO: Find a cleaner solution for the errata's workaround.
         self.write_register_bytes(0xE3, bytearray([ersr_byte]))
         # Allow the operation to complete. Datasheet says 20ms max.
         print(f"Started erase delay.", flush=True)
-        time.sleep(0.200)
+        time.sleep(0.025)
         print(f"Completed erase delay.", flush=True)
+        
+        # Woraround. Perform a dummy write to clear the error from the previous write, per the errata.
+        # https://www.renesas.com/us/en/document/dve/slg46824-errata?language=en
+        assert self.__i2c.i2c_reset()
+        # print(f"I2C reset ok.", flush=True)
 
         # Verify that the page is all zeros.
         assert self.__is_page_erased(memory_space, page_id)
