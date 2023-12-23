@@ -17,7 +17,8 @@
 static constexpr uint32_t kCommandTimeoutMillis = 250;
 // static constexpr uint32_t kCommandTimeoutMillis = 0xffffffff;
 
-static uint8_t data_buffer[500];
+// static uint8_t cmd_buffer[20];
+static uint8_t data_buffer[512];
 
 static uint32_t last_command_start_millis = 0;
 
@@ -52,11 +53,21 @@ class CommandHandler {
   const char* _name;
 };
 
-// ECHO command.
+// ECHO command. Recieves a byte and echoes it back as a response. Used
+// to test connectivity with the driver.
+//
+// Command:
+// - byte 0:  'e'
+// - byte 1:  Bhar to echo, 0x00 to 0xff
+//
+// Response:
+// - byte 0:  Byte 1 from the command.
+//
 static class EchoCommandHandler : public CommandHandler {
  public:
   EchoCommandHandler() : CommandHandler("ECHO") {}
   virtual bool on_cmd_loop() override {
+    static_assert(sizeof(data_buffer) >= 1);
     if (!read_input_bytes(data_buffer, 1)) {
       return false;
     }
@@ -65,7 +76,15 @@ static class EchoCommandHandler : public CommandHandler {
   }
 } echo_cmd_handler;
 
-// INFO command.
+// INFO command. Provides information about this driver. Currently
+// it's a skeleton for future values that will be returned.
+//
+// Command:
+// - byte 0:  'i'
+//
+// Response:
+// - byte 0:  Number of bytes to follow. Equals 1.
+// - byte 1:  API version of this driver. Equals 1.
 static class InfoCommandHandler : public CommandHandler {
  public:
   InfoCommandHandler() : CommandHandler("INFO") {}
@@ -76,83 +95,160 @@ static class InfoCommandHandler : public CommandHandler {
   }
 } info_cmd_handler;
 
-// WRITE command.
+// WRITE command. Writes N bytes to an I2C device.
 //
-// Returned status:
-//  0 : Success
+// Command:
+// - byte 0:    'w'
+// - byte 1:    Device's I2C address in the range 0-127.
+// - byte 2,3:  Number bytes to write. Big endian. Should be in the
+//              range 1 to 512.
+// - Byte 4...  The data bytes to write.
+//
+// Error response:
+// - byte 0:    'E' for error.
+// - byte 1:    Additional device specific internal error info per the list
+// below.
+//
+// OK response
+// - byte 0:    'K' for 'OK'.
+//
+// Additional error info:
 //  1 : Data too long
 //  2 : NACK on transmit of address
 //  3 : NACK on transmit of data
 //  4 : Other error
 //  5 : Timeout
+//  8 : Device address out of range..
+//  9 : Count out of range.
+//
 static class WriteCommandHandler : public CommandHandler {
  public:
   WriteCommandHandler() : CommandHandler("WRITE") {}
-  virtual void on_cmd_entered() override { _got_cmd_header = false; }
+  virtual void on_cmd_entered() override {
+    _got_cmd_header = false;
+    _device_addr = 0;
+    _count = 0;
+  }
   virtual bool on_cmd_loop() override {
     // Read command header.
     if (!_got_cmd_header) {
-      if (!read_input_bytes(data_buffer, 2)) {
+      static_assert(sizeof(data_buffer) >= 3);
+      if (!read_input_bytes(data_buffer, 3)) {
         return false;
       }
+      _device_addr = data_buffer[0];
+      _count = (((uint16_t)data_buffer[1]) << 8) + data_buffer[2];
       _got_cmd_header = true;
     }
-    // Read command data bytes.
-    const uint8_t count = data_buffer[1];
-    if (!read_input_bytes(&data_buffer[2], count)) {
+
+    // Validate the command header.
+    uint8_t status = (_device_addr > 127) ? 0x08 : (_count > 512) ? 0x09 : 0x00;
+    if (status != 0x00) {
+      Serial.write("E");
+      Serial.write(status);
+      return true;
+    }
+
+    // Read the data bytes
+    static_assert(sizeof(data_buffer) >= 512);
+    if (!read_input_bytes(data_buffer, _count)) {
       return false;
     }
-    // Device address is 7 bits LSB.
-    const uint8_t device_addr = data_buffer[0];
-    // Wire.clearTimeoutFlag();
-    Wire.beginTransmission(device_addr);
-    Wire.write(&data_buffer[2], count);
-    const uint8_t status = Wire.endTransmission(true);
 
-    // Return response.
-    Serial.write(status ? 'E' : 'K');
-    Serial.write(status);
+    // Serial.print("["); Serial.print(_device_addr); Serial.print("]");
+    // Serial.print("["); Serial.print(_count); Serial.print("]");
+    // Serial.print("["); Serial.print(data_buffer[0]); Serial.print("]");
+    // Serial.print("["); Serial.print(data_buffer[1]); Serial.print("]");
+
+    // Device address is 7 bits LSB.
+    // const uint8_t device_addr = data_buffer[0];
+    // Wire.clearTimeoutFlag();
+    Wire.beginTransmission(_device_addr);
+    Wire.write(data_buffer, _count);
+    status = Wire.endTransmission(true);
+
+    // All done
+    if (status == 0x00) {
+      Serial.write("K");
+    } else {
+      Serial.write("E");
+      Serial.write(status);
+    }
     return true;
   }
 
  private:
   bool _got_cmd_header = false;
+  uint8_t _device_addr = 0;
+  uint16_t _count = 0;
 
 } write_cmd_handler;
 
-// READ command.
+// READ command. Read N bytes from an I2C device.
+//
+// Command:
+// - byte 0:    'r'
+// - byte 1:    Device's I2C address in the range 0-127.
+// - byte 2,3:  Number bytes to read. Big endian. Should be in the
+//              range 1 to 512.
+//
+// Error  Response:
+// - byte 0:    'E' for 'error'.
+// - byte 1:    Additional device specific internal error info per the list
+// below.
+//
+// OK Response:
+// - byte 0:    'K' for 'OK'.
+// - byte 1,2:  Number bytes to follow. Big endian. Identical to the
+//              count in the command.
+// - byte 3...  The bytes read.
+//
+// Additional error info:
+//  1 : Byte count mismatch while reading.
+//  2 : Bytes not available for reading.
+//  8 : Device address out of range..
+//  9 : Count out of range.
+
 static class ReadCommandHandler : public CommandHandler {
  public:
   ReadCommandHandler() : CommandHandler("READ") {}
 
   virtual bool on_cmd_loop() override {
     // Get the command address and the count.
-    if (!read_input_bytes(data_buffer, 2)) {
-      return false;
+
+    static_assert(sizeof(data_buffer) >= 3);
+    if (!read_input_bytes(data_buffer, 3)) {
+      return false; // try later
     }
 
-    // Device address is 7 bits LSB.
+    // Sanity check the command
     const uint8_t device_addr = data_buffer[0];
-    const uint8_t count = data_buffer[1];
-    // Wire.clearTimeoutFlag();
-    const size_t actual_count = Wire.requestFrom(device_addr, count, true);
-    // Send error response.
-    // const bool had_timeout = Wire.getTimeoutFlag();
-    uint8_t status = 0x00;
-    if (actual_count != count) {
-      status |= 0x01;
-    }
-    if (Wire.available() != count) {
-      status |= 0x02;
-    }
-    if (status != 0) {
+    const uint16_t count = (((uint16_t)data_buffer[1]) << 8) + data_buffer[2];
+    uint8_t status = (device_addr > 127) ? 0x08 : (count > 512) ? 0x09 : 0x00;
+    if (status != 0x00) {
       Serial.write("E");
       Serial.write(status);
       return true;
     }
+
+    // Read the bytes from the I2C devcie.
+    const size_t actual_count = Wire.requestFrom(device_addr, count, true);
+
+    // Sanity check the response.
+    status = (actual_count != count)       ? 0x01
+             : (Wire.available() != count) ? 0x02
+                                           : 0x00;
+    if (status != 0x00) {
+      Serial.write("E");
+      Serial.write(status);
+      return true;
+    }
+
     // Here when OK, send status, count, and data.
     Serial.write("K");
-    Serial.write(count);
+    // Serial.print("["); Serial.print(count); Serial.print("]");
+    Serial.write(count >> 8);
+    Serial.write(count & 0x00ff);
     for (uint16_t i = 0; i < count; i++) {
       Serial.write(Wire.read());
     }
@@ -219,15 +315,17 @@ void loop() {
     return;
   }
 
-  // Not in a command. Test if a char arrived to select the next command.
-  if (!Serial.available()) {
+  // Not in a command. Try to read selection char of next command.
+  static_assert(sizeof(data_buffer) >= 1);
+  if (!read_input_bytes(data_buffer, 1)) {
     return;
   }
 
   // Dispatch the next command.
-  const char cmd_char = Serial.read();
-  current_cmd = find_command_handler_by_char(cmd_char);
+  // const char cmd_char = Serial.read();
+  current_cmd = find_command_handler_by_char(data_buffer[0]);
   if (current_cmd) {
+    // Started a new command.
     last_command_start_millis = millis_now;
     current_cmd->on_cmd_entered();
   } else {
