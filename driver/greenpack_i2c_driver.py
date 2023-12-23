@@ -4,8 +4,7 @@
 # https://www.renesas.com/us/en/document/mat/system-programming-guide-slg468246?r=1572991
 # https://www.renesas.com/us/en/document/mat/slg47004-system-programming-guide?r=1572991
 
-# import i2cdriver
-from i2c_pico_driver import I2cPicoDriver
+from i2c_adapter import I2cAdapter
 from enum import Enum
 from typing import Optional, List, Tuple
 import time
@@ -102,7 +101,7 @@ class GreenPakI2cDriver:
         """Initialize using a I2CDrivcer serial port and GreenPAK device control code.."""
         self.set_control_code(control_code)
         # self.__i2c = i2cdriver.I2CDriver(port, reset=False)
-        self.__i2c:I2cPicoDriver = I2cPicoDriver(port)
+        self.__i2c:I2cAdapter = I2cAdapter(port)
 
     def set_control_code(self, control_code: int) -> None:
         """Set the GreenPAK device control code to use. Should be in [0, 15]"""
