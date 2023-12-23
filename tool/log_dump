@@ -1,0 +1,33 @@
+Page NVM/00 no change.
+Page NVM/01 no change.
+Page NVM/02 no change.
+Page NVM/03 no change.
+Page NVM/04 no change.
+Page NVM/05 no change.
+Page NVM/06 no change.
+Page NVM/07 no change.
+Page NVM/08 no change.
+Page NVM/09 no change.
+Erasing page NVM/10.
+I2C write: failed with status = 02
+Traceback (most recent call last):
+  File "C:\Users\user\projects\greenpaks\repo\tool\test.py", line 38, in <module>
+    gp.program_nvm_pages(0, data)
+  File "C:\Users\user\projects\greenpaks\repo\tool\greenpack_i2c_driver.py", line 327, in program_nvm_pages
+    self.__program_pages(MemorySpace.NVM, start_page_id, pages_data)
+  File "C:\Users\user\projects\greenpaks\repo\tool\greenpack_i2c_driver.py", line 319, in __program_pages
+    self.__program_page(memory_space, start_page_id + i, page_data)
+  File "C:\Users\user\projects\greenpaks\repo\tool\greenpack_i2c_driver.py", line 289, in __program_page
+    self.__erase_page(memory_space, page_id)
+  File "C:\Users\user\projects\greenpaks\repo\tool\greenpack_i2c_driver.py", line 262, in __erase_page
+    assert self.__is_page_erased(memory_space, page_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\projects\greenpaks\repo\tool\greenpack_i2c_driver.py", line 271, in __is_page_erased
+    data = self.__read_page(memory_space, page_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\projects\greenpaks\repo\tool\greenpack_i2c_driver.py", line 236, in __read_page
+    data = self.__read_bytes(memory_space, page_id << 4, 16)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\projects\greenpaks\repo\tool\greenpack_i2c_driver.py", line 152, in __read_bytes
+    assert ok
+AssertionError

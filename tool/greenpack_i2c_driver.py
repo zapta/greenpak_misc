@@ -221,7 +221,7 @@ class GreenPakI2cDriver:
         payload.extend(data)
 
         # Write the data
-        ok = self.__i2c.write(device_i2c_addr, bytearray(payload))
+        ok = self.__i2c.i2c_write(device_i2c_addr, bytearray(payload))
         assert ok
         # assert ack
         # ack = self.__i2c.write(bytearray(payload))
@@ -256,7 +256,9 @@ class GreenPakI2cDriver:
         device_i2c_addr = self.__i2c_device_addr(MemorySpace.REGISTER)
         self.write_register_bytes(0xE3, bytearray([ersr_byte]))
         # Allow the operation to complete. Datasheet says 20ms max.
-        time.sleep(0.025)
+        print(f"Started erase delay.", flush=True)
+        time.sleep(0.200)
+        print(f"Completed erase delay.", flush=True)
 
         # Verify that the page is all zeros.
         assert self.__is_page_erased(memory_space, page_id)
