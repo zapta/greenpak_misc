@@ -12,6 +12,7 @@ import time
 import re
 
 # TODO: Fix the 255 count limit issue.
+# TODO: Examine transactions with the logic analyzer and make sure we don't make extra operation such as reads.
 # TODO: Handle and verify device ids.
 # TODO: Add prevention of bricking or locking.
 # TODO: Add high level operation such as setting the I2C address.
