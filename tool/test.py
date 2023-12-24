@@ -1,7 +1,7 @@
 
 import greenpak as gp
 
-driver = gp.GreenpakDriver(port="COM17", control_code=0b0001)
+driver = gp.GreenpakDriver(port="COM17", device="SLG46826", control_code=0b0001)
 
 # Scan and print available greenpack devices.
 control_codes = driver.scan_devices()
@@ -20,8 +20,8 @@ print()
 
 
 # Load the new program from disk. 
-#file_name = "test_data/blinky_nvm_fast.txt"
-file_name = "test_data/blinky_nvm_slow.txt"
+file_name = "test_data/blinky_nvm_fast.txt"
+#file_name = "test_data/blinky_nvm_slow.txt"
 print(f"Loading file {file_name}")
 data = gp.read_bits_file(file_name)
 print(f"\nProgram loaded from file:")
