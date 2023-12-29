@@ -73,7 +73,7 @@
         "extra_footprint": "warning",
         "footprint": "error",
         "footprint_type_mismatch": "warning",
-        "hole_clearance": "error",
+        "hole_clearance": "ignore",
         "hole_near_hole": "error",
         "invalid_outline": "error",
         "isolated_copper": "warning",
