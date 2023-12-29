@@ -91,7 +91,7 @@
         "padstack": "warning",
         "pth_inside_courtyard": "warning",
         "shorting_items": "error",
-        "silk_edge_clearance": "warning",
+        "silk_edge_clearance": "ignore",
         "silk_over_copper": "warning",
         "silk_overlap": "warning",
         "skew_out_of_range": "error",
@@ -485,7 +485,7 @@
   },
   "sheets": [
     [
-      "abc784c9-5981-4f30-87d8-741230168b08",
+      "c42cff2a-b90f-45f8-b849-5a71cb48f747",
       ""
     ]
   ],

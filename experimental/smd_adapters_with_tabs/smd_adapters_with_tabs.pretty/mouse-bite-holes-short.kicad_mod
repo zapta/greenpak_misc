@@ -1,0 +1,15 @@
+(footprint "mouse-bite-holes-short" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (attr through_hole)
+  (fp_text reference "mouse-bite-2.54mm-slot" (at 0 -2) (layer "F.SilkS") hide
+      (effects (font (size 1 1) (thickness 0.2)))
+    (tstamp 9a0f3f02-df8a-4f47-bcc3-7384cdb08733)
+  )
+  (fp_text value "VAL**" (at 0 2.1) (layer "F.SilkS") hide
+      (effects (font (size 1 1) (thickness 0.2)))
+    (tstamp 99389eeb-cc04-4b78-95af-ee36e8fe6eeb)
+  )
+  (pad "" np_thru_hole circle (at -0.8 1.143) (size 0.5 0.5) (drill 0.5) (layers "F&B.Cu" "*.Mask") (tstamp f2290509-23bd-48ac-a2cf-f779dbb9596c))
+  (pad "" np_thru_hole circle (at 0 1.143) (size 0.5 0.5) (drill 0.5) (layers "F&B.Cu" "*.Mask") (tstamp eaf5787f-1ef5-42a8-b939-bc58184e34a6))
+  (pad "" np_thru_hole circle (at 0.8 1.143) (size 0.5 0.5) (drill 0.5) (layers "F&B.Cu" "*.Mask") (tstamp 37e13ebc-6811-44e1-8fd9-2a865c6402db))
+)
