@@ -63,7 +63,7 @@
         "annular_width": "error",
         "clearance": "error",
         "connection_width": "warning",
-        "copper_edge_clearance": "error",
+        "copper_edge_clearance": "ignore",
         "copper_sliver": "warning",
         "courtyards_overlap": "error",
         "diff_pair_gap_out_of_range": "error",
@@ -73,7 +73,7 @@
         "extra_footprint": "warning",
         "footprint": "error",
         "footprint_type_mismatch": "warning",
-        "hole_clearance": "error",
+        "hole_clearance": "ignore",
         "hole_near_hole": "error",
         "invalid_outline": "error",
         "isolated_copper": "warning",
@@ -91,7 +91,7 @@
         "padstack": "warning",
         "pth_inside_courtyard": "warning",
         "shorting_items": "error",
-        "silk_edge_clearance": "warning",
+        "silk_edge_clearance": "ignore",
         "silk_over_copper": "warning",
         "silk_overlap": "warning",
         "skew_out_of_range": "error",
@@ -408,7 +408,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "greenpak_smd_adapters.kicad_pro",
+    "filename": "smd_adapters.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -485,7 +485,7 @@
   },
   "sheets": [
     [
-      "abc784c9-5981-4f30-87d8-741230168b08",
+      "c42cff2a-b90f-45f8-b849-5a71cb48f747",
       ""
     ]
   ],
