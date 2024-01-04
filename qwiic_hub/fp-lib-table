@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "qwiic_hub")(type "KiCad")(uri "${KIPRJMOD}/qwiic_hub.pretty")(options "")(descr ""))
+)
