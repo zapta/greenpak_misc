@@ -4,61 +4,41 @@ from greenpak import driver, i2c, utils
 import time
 import sys
 
-device_code = 7
 port = "COM20"
+device_code = 7
 
 i2c_driver = i2c.GreenPakI2cAdapter(port = port)
 gp_driver = driver.GreenpakDriver(i2c_driver, "SLG46826", device_code)
 
-# Scan and print available greenpack devices.
-# for i in range(1000):
-for i in range(1):
-  control_codes = gp_driver.scan_greenpak_devices()
-  if control_codes:
-    print(f"Devices found control codes:", flush=True)
-    for control_code in control_codes:
-        print(f"  {control_code:02d}", flush=True)
-  else:
-    print(f"No devices found", flush=True)
-  time.sleep(0.5)
+device_codes = gp_driver.scan_greenpak_devices()
+print(f"Greenpak device control code found: {device_codes}", flush=True)
+assert device_codes
+assert device_code in device_codes
+
+
+# data = gp_driver.read_register_bytes(0x74, 1)
+# assert len(data) == 1
+# b = data[0]
+# result = ((b & 0b00000110) >> 1) | ((b & 0b01100000) >> 3)
+# print(f"Value = {result:04b}")
+
+class I2cExtender:
+  def __init__(self, gp_driver: driver.GreenPakI2cInterface):
+    self.__gp_driver = gp_driver
+    
+  def read_input(self) -> int:
+    """Read the 4 input pins and return their value as a 4 bits int."""
+    data = self.__gp_driver.read_register_bytes(0x74, 1)
+    assert len(data) == 1
+    b = data[0]
+    return ((b & 0b00000110) >> 1) | ((b & 0b01100000) >> 3)
   
-# sys.exit()
 
-# Dump device content before programming.
-#data = driver.read_nvm_bytes(0, 256)
-#print(f"\nNVM before:")
-#gp.hex_dump(data)
-#print()
+extender = I2cExtender(gp_driver)
 
-assert len(control_codes) == 1, len(control_codes)
-print(f"Setting control code to {control_codes[0]}", flush=True)
-gp_driver.set_device_control_code(control_codes[0])
-
-# Load the new program from disk. 
-# file_name = "./i2c_extender.hex"
-file_name = "./i2c_extender.txt"
-print(f"Loading file {file_name}")
-# data = utils.read_hex_config_file(file_name)
-data = utils.read_bits_config_file(file_name)
-print(f"\nProgram loaded from file:")
-utils.hex_dump(data)
-print()
-
-
-# Program the new program into the device.
-gp_driver.program_nvm_pages(0, data)
-
-time.sleep(0.1)
-
-gp_driver.reset_device()
-
-time.sleep(0.1)
-
-# Dump device content after programming.
-data = gp_driver.read_register_bytes(0, 256)
-print(f"\nRegister after:")
-utils.hex_dump(data)
-# print()
-
-utils.write_bits_config_file("_register_output.txt", data)
+while True:
+  v = extender.read_input()
+  print(f"Input: {v:04b}", flush=True)
+  time.sleep(1.0)
+  
 
