@@ -15,11 +15,9 @@ print(f"Greenpak device control code found: {device_codes}", flush=True)
 assert device_codes
 assert device_code in device_codes
 
-#file_name = "./i2c_extender.txt"
-file_name = "./i2c_extender.hex"
+file_name = "./io_extender.hex"
 print(f"Loading file {file_name}")
 data = utils.read_hex_config_file(file_name)
-#data = utils.read_bits_config_file(file_name)
 print(f"\nProgram loaded from file:")
 utils.hex_dump(data)
 print()
