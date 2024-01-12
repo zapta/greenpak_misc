@@ -1,3 +1,5 @@
+#!python
+
 from greenpak import driver, i2c
 from io_extender import IoExtender
 import time
