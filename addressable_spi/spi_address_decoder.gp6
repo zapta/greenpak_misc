@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/19/24 9:25 AM" projectChecksumState="1" projectChecksum="45386647">
+<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/19/2024 9:54 AM" projectChecksumState="1" projectChecksum="37e2c904">
     <generalProjectSettings/>
     <chip family="04" type="06" friendlyName="GreenPAK 6" partNumber="36" package="16">
-        <nvmData registerLenght="2048">C3 B2 55 C5 45 A0 13 3 6C 6A B5 4C 40 3 0 0 0 6C 68 5 18 29 80 3D 90 B3 55 CB 56 5D 67 34 1 0 0 0 0 0 0 0 0 30 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 D4 2F FD D3 F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 10 10 10 50 0 0 30 30 30 0 0 0 0 21 21 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 22 30 C 0 0 0 0 0 0 0 99 69 2 0 44 20 22 55 0 0 48 2C 69 0 0 0 0 0 80 20 0 1 0 8 0 2 1 0 0 2 4 1 0 70 2 1 0 0 2 0 1 0 0 2 1 0 0 2 0 1 0 0 2 0 1 0 0 0 F1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
+        <nvmData registerLenght="2048">C3 B2 55 C5 45 A0 13 3 6C 6A B5 4C 40 3 0 0 0 6C 68 5 18 29 80 3D 90 B3 55 CB 56 5D 67 34 1 0 0 0 0 0 0 0 0 30 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 D4 2F FD D3 F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 50 50 50 50 0 0 30 30 30 0 0 0 0 21 21 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 22 30 C 0 0 0 0 0 0 0 99 69 2 0 44 20 22 55 0 0 48 2C 69 0 0 0 0 0 80 20 0 1 0 8 0 2 1 0 0 2 4 1 0 70 2 1 0 0 2 0 1 0 0 2 1 0 0 2 0 1 0 0 2 0 1 0 0 0 F1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
         <eepromData id="0">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</eepromData>
-        <checksum crc32="0xED8E9A6D" version="7"/>
+        <checksum crc32="0xA70050D7" version="7"/>
         <VDDItem id="0">
             <item id="0" caption="VDD (PIN 20)">
                 <graphics pos="(-489.53,-181.45)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
