@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/19/24 7:31 PM" projectChecksumState="1" projectChecksum="117b1780">
+<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/19/24 7:44 PM" projectChecksumState="1" projectChecksum="b9612efd">
     <generalProjectSettings/>
     <chip family="04" type="06" friendlyName="GreenPAK 6" partNumber="36" package="16">
         <nvmData registerLenght="2048">C4 C5 54 11 55 A0 4C 5A 31 6A C5 3C 55 3 0 4C FB 33 68 35 2C 11 E0 40 18 C5 54 B 53 5D D3 9 30 3F BB A6 A7 25 9D 5B 35 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 EB 6F FD EE F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 11 11 11 30 0 0 30 30 30 0 0 0 0 21 21 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 22 30 C 0 0 0 0 0 0 0 E9 69 2 0 0 30 0 55 0 0 D8 2E 50 0 0 0 0 80 0 20 0 1 0 8 0 2 1 0 0 2 4 1 0 22 2 1 0 0 2 4 1 0 CA 2 1 0 CA 2 0 1 10 30 2 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
@@ -82,13 +82,13 @@
         <IOPad id="14" useCaseMode="2">
             <item id="14" caption="PIN 6 (IO9)">
                 <graphics pos="(555.35,182.08)" angle="0" flipping="1" hidden="0" tOrigin="(20.00,10.00)"/>
-                <textLabel pos="(-6.35,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">DC/OUT</textLabel>
+                <textLabel pos="(-7.46,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">DC/CMD</textLabel>
             </item>
         </IOPad>
         <IOPad id="15" useCaseMode="2">
             <item id="15" caption="PIN 5 (IO10)">
                 <graphics pos="(564.39,291.90)" angle="180" flipping="2" hidden="0" tOrigin="(20.00,10.00)"/>
-                <textLabel pos="(48.21,47.00)" angle="-180.00" textColor="#ffff00ff" backgroundColor="#14141464">RST_OUT</textLabel>
+                <textLabel pos="(37.32,47.00)" angle="-180.00" textColor="#ffff00ff" backgroundColor="#14141464">nRST</textLabel>
             </item>
         </IOPad>
         <IOPad id="16" useCaseMode="2">
@@ -106,7 +106,7 @@
         <IOPad id="18" useCaseMode="1">
             <item id="18" caption="PIN 2 (IO13)">
                 <graphics pos="(-394.94,222.74)" angle="180" flipping="3" hidden="0" tOrigin="(20.00,10.00)"/>
-                <textLabel pos="(42.71,47.00)" angle="-180.00" textColor="#ffff00ff" backgroundColor="#14141464">CLK_IN</textLabel>
+                <textLabel pos="(34.32,47.00)" angle="-180.00" textColor="#ffff00ff" backgroundColor="#14141464">CLK</textLabel>
             </item>
         </IOPad>
         <IOPad id="19" useCaseMode="1">
@@ -788,14 +788,14 @@
                             </WaveformIdData>
                         </waveforms>
                     </group>
-                    <group name="RST_OUT (PIN 5)" customGroupLayout="false">
+                    <group name="nRST (PIN 5)" customGroupLayout="false">
                         <waveforms>
                             <WaveformIdData analysisType="0" pinIdStr="100;45;0;5" xAxisBinding="0;;-1;-1;-1">
                                 <parameters/>
                             </WaveformIdData>
                         </waveforms>
                     </group>
-                    <group name="DC/OUT (PIN 6)" customGroupLayout="false">
+                    <group name="DC/CMD (PIN 6)" customGroupLayout="false">
                         <waveforms>
                             <WaveformIdData analysisType="0" pinIdStr="100;45;0;6" xAxisBinding="0;;-1;-1;-1">
                                 <parameters/>
@@ -1080,13 +1080,7 @@
                                 <to>
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="3"/>
                                 </to>
-                                <path>
-                                    <point value="(-705;375)"/>
-                                    <point value="(-705;-201)"/>
-                                    <point value="(76;-201)"/>
-                                    <point value="(76;-115)"/>
-                                    <point value="(92;-115)"/>
-                                </path>
+                                <path/>
                             </connection>
                         </connections>
                     </network>
@@ -1099,13 +1093,7 @@
                                 <to>
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="2"/>
                                 </to>
-                                <path>
-                                    <point value="(-782;367)"/>
-                                    <point value="(-782;243)"/>
-                                    <point value="(-440;243)"/>
-                                    <point value="(-440;232)"/>
-                                    <point value="(-418;232)"/>
-                                </path>
+                                <path/>
                             </connection>
                         </connections>
                     </network>
@@ -1136,13 +1124,7 @@
                                 <to>
                                     <IdDto category="5" componentType="43" componentNumber="3" pinNumber="0"/>
                                 </to>
-                                <path>
-                                    <point value="(-414;134)"/>
-                                    <point value="(-764;134)"/>
-                                    <point value="(-764;351)"/>
-                                    <point value="(-862;351)"/>
-                                    <point value="(-862;370)"/>
-                                </path>
+                                <path/>
                             </connection>
                         </connections>
                     </network>
@@ -1191,13 +1173,7 @@
                                 <to>
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="10"/>
                                 </to>
-                                <path>
-                                    <point value="(-788;176)"/>
-                                    <point value="(-788;-45)"/>
-                                    <point value="(-848;-45)"/>
-                                    <point value="(-848;-62)"/>
-                                    <point value="(-829;-62)"/>
-                                </path>
+                                <path/>
                             </connection>
                         </connections>
                     </network>
@@ -1228,11 +1204,7 @@
                                 <to>
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="20"/>
                                 </to>
-                                <path>
-                                    <point value="(-856;66)"/>
-                                    <point value="(-856;-155)"/>
-                                    <point value="(-828;-155)"/>
-                                </path>
+                                <path/>
                             </connection>
                             <connection connectionType="1" routingType="0" sceneIndex="0">
                                 <from>
@@ -1241,12 +1213,7 @@
                                 <to>
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="20"/>
                                 </to>
-                                <path>
-                                    <point value="(-826;-111)"/>
-                                    <point value="(-838;-111)"/>
-                                    <point value="(-838;-155)"/>
-                                    <point value="(-828;-155)"/>
-                                </path>
+                                <path/>
                             </connection>
                             <connection connectionType="1" routingType="0" sceneIndex="0">
                                 <from>
@@ -1255,12 +1222,7 @@
                                 <to>
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="20"/>
                                 </to>
-                                <path>
-                                    <point value="(-490;616)"/>
-                                    <point value="(-896;616)"/>
-                                    <point value="(-896;-155)"/>
-                                    <point value="(-828;-155)"/>
-                                </path>
+                                <path/>
                             </connection>
                             <connection connectionType="1" routingType="0" sceneIndex="0">
                                 <from>
