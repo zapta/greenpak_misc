@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/19/24 7:44 PM" projectChecksumState="1" projectChecksum="b9612efd">
+<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/20/2024 10:37 AM" projectChecksumState="1" projectChecksum="112cfcdc">
     <generalProjectSettings/>
     <chip family="04" type="06" friendlyName="GreenPAK 6" partNumber="36" package="16">
         <nvmData registerLenght="2048">C4 C5 54 11 55 A0 4C 5A 31 6A C5 3C 55 3 0 4C FB 33 68 35 2C 11 E0 40 18 C5 54 B 53 5D D3 9 30 3F BB A6 A7 25 9D 5B 35 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 EB 6F FD EE F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 11 11 11 30 0 0 30 30 30 0 0 0 0 21 21 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 22 30 C 0 0 0 0 0 0 0 E9 69 2 0 0 30 0 55 0 0 D8 2E 50 0 0 0 0 80 0 20 0 1 0 8 0 2 1 0 0 2 4 1 0 22 2 1 0 0 2 4 1 0 CA 2 1 0 CA 2 0 1 10 30 2 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
@@ -81,7 +81,7 @@
         </VDDItem>
         <IOPad id="14" useCaseMode="2">
             <item id="14" caption="PIN 6 (IO9)">
-                <graphics pos="(555.35,182.08)" angle="0" flipping="1" hidden="0" tOrigin="(20.00,10.00)"/>
+                <graphics pos="(564.76,182.08)" angle="0" flipping="1" hidden="0" tOrigin="(20.00,10.00)"/>
                 <textLabel pos="(-7.46,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">DC/CMD</textLabel>
             </item>
         </IOPad>
@@ -93,7 +93,7 @@
         </IOPad>
         <IOPad id="16" useCaseMode="2">
             <item id="16" caption="PIN 4 (IO11)">
-                <graphics pos="(581.02,601.48)" angle="180" flipping="2" hidden="0" tOrigin="(20.00,10.00)"/>
+                <graphics pos="(626.89,602.65)" angle="180" flipping="2" hidden="0" tOrigin="(20.00,10.00)"/>
                 <textLabel pos="(48.47,47.00)" angle="-180.00" textColor="#ffff00ff" backgroundColor="#14141464">nCS_OUT</textLabel>
             </item>
         </IOPad>
@@ -155,7 +155,7 @@
             <graphics pos="(320.00,370.00)" angle="0" flipping="0" hidden="1" tOrigin="(28.00,15.00)"/>
         </item>
         <item id="33" caption="FILTER/EDGE DET">
-            <graphics pos="(-238.83,212.27)" angle="0" flipping="0" hidden="0" tOrigin="(27.50,15.00)"/>
+            <graphics pos="(-244.12,211.09)" angle="0" flipping="0" hidden="0" tOrigin="(27.50,15.00)"/>
         </item>
         <item id="34" caption="BG">
             <graphics pos="(32.90,74.09)" angle="0" flipping="0" hidden="1" tOrigin="(17.50,10.00)"/>
@@ -169,7 +169,6 @@
         <LUT id="36" regularShape="0" mode="0">
             <item id="36" caption="2-bit LUT1/DFF/LATCH1">
                 <graphics pos="(-287.28,364.23)" angle="90" flipping="1" hidden="0" tOrigin="(20.00,15.00)"/>
-                <textLabel pos="(-25.00,39.41)" angle="-90.00" textColor="#ffff00ff" backgroundColor="#14141464">A0_CMP</textLabel>
             </item>
         </LUT>
         <LUT id="37" regularShape="1" mode="0">
@@ -187,16 +186,16 @@
             <textLabel pos="(13.41,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">D4</textLabel>
         </item>
         <item id="40" caption="3-bit LUT1/DFF/LATCH4">
-            <graphics pos="(260.09,602.83)" angle="0" flipping="0" hidden="0" tOrigin="(25.00,10.00)"/>
+            <graphics pos="(305.37,602.83)" angle="0" flipping="0" hidden="0" tOrigin="(25.00,10.00)"/>
             <textLabel pos="(5.03,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">CS_FF</textLabel>
         </item>
         <item id="41" caption="3-bit LUT2/DFF/LATCH5">
             <graphics pos="(-121.10,366.74)" angle="0" flipping="0" hidden="0" tOrigin="(25.00,10.00)"/>
-            <textLabel pos="(13.41,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">D5</textLabel>
+            <textLabel pos="(-11.09,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">nFIRST_BYTE</textLabel>
         </item>
         <LUT id="42" regularShape="0" mode="2">
             <item id="42" caption="3-bit LUT3/DFF/LATCH6">
-                <graphics pos="(-250.45,114.34)" angle="90" flipping="0" hidden="0" tOrigin="(20.00,15.00)"/>
+                <graphics pos="(-244.57,114.34)" angle="90" flipping="0" hidden="0" tOrigin="(20.00,15.00)"/>
                 <textLabel pos="(-25.00,25.59)" angle="-90.00" textColor="#ffff00ff" backgroundColor="#14141464">CS</textLabel>
             </item>
         </LUT>
@@ -282,7 +281,7 @@
         </CNTDLY>
         <LUT id="63" regularShape="0" mode="0">
             <item id="63" caption="3-bit LUT9 (MF3)">
-                <graphics pos="(145.28,592.25)" angle="90" flipping="0" hidden="0" tOrigin="(20.00,15.00)"/>
+                <graphics pos="(190.56,592.25)" angle="90" flipping="0" hidden="0" tOrigin="(20.00,15.00)"/>
             </item>
         </LUT>
         <item id="64" caption="DFF/LATCH12 (MF3)">
@@ -339,7 +338,7 @@
             </item>
         </LUT>
         <item id="76" caption="DFF/LATCH16 (MF7)">
-            <graphics pos="(430.52,605.24)" angle="0" flipping="0" hidden="0" tOrigin="(25.00,10.00)"/>
+            <graphics pos="(475.80,606.53)" angle="0" flipping="0" hidden="0" tOrigin="(25.00,10.00)"/>
             <textLabel pos="(1.02,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">CS_DLY</textLabel>
         </item>
         <CNTDLY id="77" externalClockFrequence="0" externalClockFreqUnit="kHz">
@@ -369,13 +368,13 @@
             <points/>
         </wire>
         <wire output="155" input="627" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="20" wireText="D0" wireState="0">
-            <points>(177.00,-120.00); (196.00,-120.00); (196.00,-57.00); (76.00,-57.00); (76.00,-36.00); (93.00,-36.00)</points>
+            <points>(177.00,-120.00); (208.94,-120.00); (208.94,-57.00); (80.71,-57.00); (80.71,-36.00); (93.00,-36.00)</points>
         </wire>
         <wire output="157" input="557" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="13" wireText="NET13" wireState="0">
-            <points>(-329.00,129.00); (-270.00,129.00)</points>
+            <points>(-329.00,129.00); (-264.00,129.00)</points>
         </wire>
         <wire output="193" input="564" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="18" wireText="D1" wireState="0">
-            <points>(184.00,-31.00); (208.00,-31.00); (208.00,51.00); (76.00,51.00); (76.00,71.00); (96.00,71.00)</points>
+            <points>(184.00,-31.00); (208.00,-31.00); (208.00,51.00); (78.94,51.00); (78.94,71.00); (96.00,71.00)</points>
         </wire>
         <wire output="164" input="565" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="19" wireText="CS" wireState="1">
             <points/>
@@ -402,7 +401,7 @@
             <points>(-186.00,611.00); (-28.00,611.00); (-28.00,613.00); (-22.00,613.00)</points>
         </wire>
         <wire output="84" input="621" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="17" wireText="NET17" wireState="0">
-            <points>(-191.00,708.00); (-28.00,708.00); (-28.00,623.00); (-22.00,623.00)</points>
+            <points>(-191.00,708.00); (-98.20,708.00); (-98.20,623.00); (-22.00,623.00)</points>
         </wire>
         <wire output="143" input="566" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="21" wireText="NET21" wireState="0">
             <points>(-407.00,521.00); (-262.00,521.00)</points>
@@ -411,7 +410,7 @@
             <points/>
         </wire>
         <wire output="167" input="623" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="23" wireText="NET23" wireState="0">
-            <points>(-191.00,508.00); (-44.00,508.00); (-44.00,603.00); (-22.00,603.00)</points>
+            <points>(-191.00,508.00); (-96.98,508.00); (-96.98,603.00); (-22.00,603.00)</points>
         </wire>
         <wire output="164" input="556" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="19" wireText="CS" wireState="1">
             <points/>
@@ -423,25 +422,25 @@
             <points>(-381.00,387.00); (-307.00,387.00)</points>
         </wire>
         <wire output="163" input="543" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="29" wireText="NET29" wireState="0">
-            <points>(-51.00,376.00); (-45.00,376.00); (-45.00,351.00); (-313.00,351.00); (-313.00,371.00); (-307.00,371.00)</points>
+            <points>(-51.00,376.00); (-34.40,376.00); (-34.40,351.00); (-313.00,351.00); (-313.00,371.00); (-307.00,371.00)</points>
         </wire>
         <wire output="160" input="568" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="28" wireText="NET28" wireState="0">
             <points>(-381.00,387.00); (-320.00,387.00); (-320.00,494.00); (-262.00,494.00)</points>
         </wire>
         <wire output="163" input="624" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="29" wireText="NET29" wireState="0">
-            <points>(-51.00,376.00); (-28.00,376.00); (-28.00,593.00); (-22.00,593.00)</points>
+            <points>(-51.00,376.00); (-34.62,376.00); (-34.62,593.00); (-22.00,593.00)</points>
         </wire>
         <wire output="1" input="635" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="-1" wireText="GND" wireState="1">
             <points/>
         </wire>
         <wire output="162" input="633" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="15" wireText="nCS_OUT" wireState="0">
-            <points>(330.00,612.00); (336.00,612.00); (336.00,688.07); (123.00,688.07); (123.00,621.00); (129.00,621.00)</points>
+            <points>(375.00,612.00); (400.87,612.00); (400.87,690.09); (137.21,690.09); (137.21,621.00); (175.00,621.00)</points>
         </wire>
-        <wire output="191" input="634" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="30" wireText="MATCH" wireState="0">
-            <points>(49.00,608.00); (129.00,608.00)</points>
+        <wire output="191" input="634" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="30" wireText="ADR_MATCH" wireState="0">
+            <points>(49.00,608.00); (175.00,608.00)</points>
         </wire>
         <wire output="197" input="552" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="31" wireText="NET31" wireState="0">
-            <points>(200.00,608.00); (239.00,608.00)</points>
+            <points>(246.00,608.00); (284.00,608.00)</points>
         </wire>
         <wire output="201" input="639" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="25" wireText="NET25" wireState="0">
             <points>(349.00,182.00); (374.00,182.00); (374.00,183.00); (378.00,183.00)</points>
@@ -456,10 +455,10 @@
             <points/>
         </wire>
         <wire output="199" input="641" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="33" wireText="NET33" wireState="0">
-            <points>(469.00,188.00); (484.00,188.00); (484.00,231.00); (256.00,231.00); (256.00,195.00); (278.00,195.00)</points>
+            <points>(469.00,188.00); (484.00,188.00); (484.00,258.65); (241.29,258.65); (241.29,195.00); (278.00,195.00)</points>
         </wire>
         <wire output="165" input="645" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="34" wireText="NET34" wireState="0">
-            <points>(468.00,306.00); (474.00,306.00); (474.00,389.09); (275.00,389.09); (275.00,313.00); (281.00,313.00)</points>
+            <points>(468.00,306.00); (483.27,306.00); (483.27,389.09); (240.88,389.09); (240.88,313.00); (281.00,313.00)</points>
         </wire>
         <wire output="161" input="646" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="35" wireText="NET35" wireState="0">
             <points>(190.00,300.00); (281.00,300.00)</points>
@@ -467,10 +466,10 @@
         <wire output="195" input="642" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="24" wireText="D3" wireState="0">
             <points>(189.00,182.00); (278.00,182.00)</points>
         </wire>
-        <wire output="191" input="647" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="30" wireText="MATCH" wireState="1">
+        <wire output="191" input="647" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="30" wireText="ADR_MATCH" wireState="1">
             <points/>
         </wire>
-        <wire output="191" input="643" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="30" wireText="MATCH" wireState="1">
+        <wire output="191" input="643" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="30" wireText="ADR_MATCH" wireState="1">
             <points/>
         </wire>
         <wire output="0" input="528" autoRouting="1" pen="#ff8000ff;1.00;1;32;128" lineType="2" protected="1" CWLid="-1" wireText="VDD" wireState="1">
@@ -483,13 +482,13 @@
             <points/>
         </wire>
         <wire output="199" input="524" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="33" wireText="NET33" wireState="0">
-            <points>(469.00,188.00); (532.00,188.00)</points>
+            <points>(469.00,188.00); (542.00,188.00)</points>
         </wire>
         <wire output="195" input="549" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="24" wireText="D3" wireState="0">
-            <points>(189.00,182.00); (208.00,182.00); (208.00,279.00); (76.00,279.00); (76.00,296.00); (99.00,296.00)</points>
+            <points>(189.00,182.00); (208.00,182.00); (208.00,254.29); (76.00,254.29); (76.00,296.00); (99.00,296.00)</points>
         </wire>
         <wire output="166" input="631" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="27" wireText="D2" wireState="0">
-            <points>(187.00,75.00); (193.00,75.00); (193.00,159.00); (92.00,159.00); (92.00,177.00); (98.00,177.00)</points>
+            <points>(187.00,75.00); (205.94,75.00); (205.94,159.00); (77.88,159.00); (77.88,177.00); (98.00,177.00)</points>
         </wire>
         <wire output="164" input="550" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="19" wireText="CS" wireState="1">
             <points/>
@@ -522,16 +521,16 @@
             <points/>
         </wire>
         <wire output="162" input="651" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="15" wireText="nCS_OUT" wireState="0">
-            <points>(330.00,612.00); (404.00,612.00); (404.00,611.00); (410.00,611.00)</points>
+            <points>(375.00,612.00); (455.00,612.00)</points>
         </wire>
         <wire output="156" input="260" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="3" wireText="CLK" wireState="0">
-            <points>(-333.00,227.00); (-272.00,227.00); (-272.00,228.00); (-260.00,228.00)</points>
+            <points>(-333.00,227.00); (-265.00,227.00)</points>
         </wire>
         <wire output="83" input="649" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="12" wireText="DCLK" wireState="1">
             <points/>
         </wire>
         <wire output="205" input="530" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="36" wireText="NET36" wireState="0">
-            <points>(501.00,616.00); (558.00,616.00)</points>
+            <points>(546.00,617.00); (604.00,617.00)</points>
         </wire>
         <wire output="164" input="650" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="19" wireText="CS" wireState="1">
             <points/>
