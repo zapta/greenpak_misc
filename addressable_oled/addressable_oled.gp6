@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/20/2024 10:37 AM" projectChecksumState="1" projectChecksum="112cfcdc">
+<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/20/2024 1:02 PM" projectChecksumState="1" projectChecksum="0fb296c6">
     <generalProjectSettings/>
     <chip family="04" type="06" friendlyName="GreenPAK 6" partNumber="36" package="16">
-        <nvmData registerLenght="2048">C4 C5 54 11 55 A0 4C 5A 31 6A C5 3C 55 3 0 4C FB 33 68 35 2C 11 E0 40 18 C5 54 B 53 5D D3 9 30 3F BB A6 A7 25 9D 5B 35 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 EB 6F FD EE F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 11 11 11 30 0 0 30 30 30 0 0 0 0 21 21 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 22 30 C 0 0 0 0 0 0 0 E9 69 2 0 0 30 0 55 0 0 D8 2E 50 0 0 0 0 80 0 20 0 1 0 8 0 2 1 0 0 2 4 1 0 22 2 1 0 0 2 4 1 0 CA 2 1 0 CA 2 0 1 10 30 2 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
+        <nvmData registerLenght="2048">C5 C5 54 11 45 A0 4C 5A 31 6A C5 3C 55 3 0 4C FB 33 68 35 2C 11 E0 40 18 C5 54 B 53 5D D3 9 30 3F BB A6 A7 25 9D 5B 35 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 EB 6F FD EE F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 11 11 11 30 0 0 30 30 30 0 0 0 0 21 21 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 22 30 C 0 0 0 0 0 0 0 E9 69 2 0 0 30 0 55 0 0 D8 2E 50 0 0 0 0 80 0 20 0 1 0 8 0 2 1 0 0 2 4 1 0 22 2 1 0 0 2 4 1 0 CA 2 1 0 CA 2 0 1 10 30 2 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
         <eepromData id="0">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</eepromData>
-        <checksum crc32="0xA68DE2B4" version="7"/>
+        <checksum crc32="0xE7D72334" version="7"/>
         <VDDItem id="0">
             <item id="0" caption="VDD (PIN 20)">
                 <graphics pos="(-804.86,-165.39)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
@@ -29,13 +29,13 @@
         </IOPad>
         <IOPad id="4" useCaseMode="1">
             <item id="4" caption="PIN 16 (IO3)">
-                <graphics pos="(-469.76,702.77)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
+                <graphics pos="(-472.68,596.13)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
                 <textLabel pos="(8.73,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">A2</textLabel>
             </item>
         </IOPad>
         <IOPad id="5" useCaseMode="1">
             <item id="5" caption="PIN 15 (IO4)">
-                <graphics pos="(-466.59,605.48)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
+                <graphics pos="(-472.43,698.97)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
                 <textLabel pos="(8.73,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">A1</textLabel>
             </item>
         </IOPad>
@@ -388,12 +388,6 @@
         <wire output="0" input="531" autoRouting="1" pen="#ff8000ff;1.00;1;32;128" lineType="2" protected="1" CWLid="-1" wireText="VDD" wireState="1">
             <points/>
         </wire>
-        <wire output="145" input="544" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="26" wireText="NET26" wireState="0">
-            <points>(-405.00,621.00); (-257.00,621.00)</points>
-        </wire>
-        <wire output="144" input="261" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="14" wireText="NET14" wireState="0">
-            <points>(-408.00,718.00); (-262.00,718.00)</points>
-        </wire>
         <wire output="166" input="262" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="27" wireText="D2" wireState="1">
             <points/>
         </wire>
@@ -534,6 +528,12 @@
         </wire>
         <wire output="164" input="650" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="19" wireText="CS" wireState="1">
             <points/>
+        </wire>
+        <wire output="144" input="544" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="14" wireText="NET14" wireState="0">
+            <points>(-411.00,612.00); (-272.00,612.00); (-272.00,621.00); (-257.00,621.00)</points>
+        </wire>
+        <wire output="145" input="261" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="26" wireText="NET26" wireState="0">
+            <points>(-410.00,714.00); (-284.00,714.00); (-284.00,718.00); (-262.00,718.00)</points>
         </wire>
     </chip>
     <emulatorConfiguration version="4" oldestCompatibleVersion="4">
@@ -1216,15 +1216,6 @@
                             </connection>
                             <connection connectionType="1" routingType="0" sceneIndex="0">
                                 <from>
-                                    <IdDto category="100" componentType="45" componentNumber="0" pinNumber="15"/>
-                                </from>
-                                <to>
-                                    <IdDto category="100" componentType="45" componentNumber="0" pinNumber="20"/>
-                                </to>
-                                <path/>
-                            </connection>
-                            <connection connectionType="1" routingType="0" sceneIndex="0">
-                                <from>
                                     <IdDto category="5" componentType="39" componentNumber="2" pinNumber="1"/>
                                 </from>
                                 <to>
@@ -1235,6 +1226,15 @@
                             <connection connectionType="1" routingType="0" sceneIndex="0">
                                 <from>
                                     <IdDto category="5" componentType="39" componentNumber="1" pinNumber="1"/>
+                                </from>
+                                <to>
+                                    <IdDto category="100" componentType="45" componentNumber="0" pinNumber="20"/>
+                                </to>
+                                <path/>
+                            </connection>
+                            <connection connectionType="1" routingType="0" sceneIndex="0">
+                                <from>
+                                    <IdDto category="100" componentType="45" componentNumber="0" pinNumber="16"/>
                                 </from>
                                 <to>
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="20"/>
