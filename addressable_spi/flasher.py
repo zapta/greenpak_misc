@@ -4,6 +4,7 @@ from greenpak import driver, i2c, utils
 import time
 import sys
 
+#port = "COM17"
 port = "COM20"
 #device_code = 15 
 
