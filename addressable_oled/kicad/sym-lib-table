@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "addressable_oled")(type "KiCad")(uri "${KIPRJMOD}/addressable_oled.kicad_sym")(options "")(descr ""))
+)
