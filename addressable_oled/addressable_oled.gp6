@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/21/24 12:51 PM" projectChecksumState="1" projectChecksum="5e2db60a">
+<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/21/24 2:28 PM" projectChecksumState="1" projectChecksum="222ce9c0">
     <generalProjectSettings/>
     <chip family="04" type="06" friendlyName="GreenPAK 6" partNumber="36" package="16">
-        <nvmData registerLenght="2048">C5 C5 54 11 45 A0 4C 5A 31 6A C5 3C 55 3 0 4C FB 33 68 35 2C 11 E0 40 18 C5 54 B 53 5D D3 9 30 3F BB A6 A7 25 9D 5B 35 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 C0 6A FD CB CF FC EE F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 11 11 11 30 0 0 30 80 0 0 0 0 0 21 21 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 22 30 C 0 0 0 0 0 0 0 E9 69 2 0 0 30 0 55 0 0 D8 2E 90 0 0 0 0 80 0 20 0 1 0 8 0 2 1 0 0 2 4 1 0 22 2 1 0 0 2 4 1 0 CA 2 1 0 CA 2 0 1 10 30 2 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
+        <nvmData registerLenght="2048">C5 C5 54 11 45 A0 4C 5A 31 6A C5 3C 55 3 0 4C FB 33 68 35 2C 11 E0 40 18 C5 54 B 53 5D D3 9 30 3F BB A6 A7 25 9D 5B 35 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 C0 6A FD CB CF FC EE F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 50 0 11 11 11 50 0 0 30 80 0 0 0 0 0 21 21 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 22 30 C 0 0 0 0 0 0 0 E9 69 2 0 0 30 0 55 0 0 D8 2E 90 0 0 0 0 80 0 20 0 1 0 8 0 2 1 0 0 2 4 1 0 22 2 1 0 0 2 4 1 0 CA 2 1 0 CA 2 0 1 10 30 2 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
         <eepromData id="0">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</eepromData>
-        <checksum crc32="0x68ED2956" version="7"/>
+        <checksum crc32="0x4B0A73ED" version="7"/>
         <VDDItem id="0">
             <item id="0" caption="VDD (PIN 20)">
                 <graphics pos="(-804.86,-165.39)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
@@ -16,9 +16,10 @@
                 <textLabel pos="(-5.06,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">CS_OUT</textLabel>
             </item>
         </IOPad>
-        <IOPad id="2" useCaseMode="0">
+        <IOPad id="2" useCaseMode="1">
             <item id="2" caption="PIN 18 (IO1)">
-                <graphics pos="(-0.29,197.38)" angle="0" flipping="1" hidden="1" tOrigin="(20.00,10.00)"/>
+                <graphics pos="(-364.52,-261.16)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
+                <textLabel pos="(-7.02,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">PULLUP2</textLabel>
             </item>
         </IOPad>
         <IOPad id="3" useCaseMode="1">
@@ -39,9 +40,10 @@
                 <textLabel pos="(8.73,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">A1</textLabel>
             </item>
         </IOPad>
-        <IOPad id="6" useCaseMode="0">
+        <IOPad id="6" useCaseMode="1">
             <item id="6" caption="PIN 14 (IO5)">
-                <graphics pos="(-127.40,136.46)" angle="180" flipping="2" hidden="1" tOrigin="(20.00,10.00)"/>
+                <graphics pos="(-366.42,-170.86)" angle="180" flipping="3" hidden="0" tOrigin="(20.00,10.00)"/>
+                <textLabel pos="(47.02,47.00)" angle="-180.00" textColor="#ffff00ff" backgroundColor="#14141464">PULLUP1</textLabel>
             </item>
         </IOPad>
         <IOPad id="7" useCaseMode="1">
@@ -943,30 +945,6 @@
                         <instanceProps/>
                     </component>
                     <component simulationModel="" defaultSimulationModel="">
-                        <componentId category="5" componentType="39" componentNumber="1"/>
-                        <componentUiSettings isFlippedHorizontally="false" isFlippedVertically="false" visible="true" position="(-463.916;-135.467)" rotationState="3" sceneIndex="0"/>
-                        <schematicProps>
-                            <param id="name" affinity="4" value="R1" defaultValue=""/>
-                            <param id="mfg" affinity="4" value="" defaultValue=""/>
-                            <param id="part_number" affinity="4" value="" defaultValue=""/>
-                        </schematicProps>
-                        <instanceProps>
-                            <param id="r" affinity="3" value="3k" defaultValue=""/>
-                        </instanceProps>
-                    </component>
-                    <component simulationModel="" defaultSimulationModel="">
-                        <componentId category="5" componentType="39" componentNumber="2"/>
-                        <componentUiSettings isFlippedHorizontally="false" isFlippedVertically="false" visible="true" position="(-516.471;-135.467)" rotationState="3" sceneIndex="0"/>
-                        <schematicProps>
-                            <param id="name" affinity="4" value="R2" defaultValue=""/>
-                            <param id="mfg" affinity="4" value="" defaultValue=""/>
-                            <param id="part_number" affinity="4" value="" defaultValue=""/>
-                        </schematicProps>
-                        <instanceProps>
-                            <param id="r" affinity="3" value="3k" defaultValue=""/>
-                        </instanceProps>
-                    </component>
-                    <component simulationModel="" defaultSimulationModel="">
                         <componentId category="5" componentType="43" componentNumber="1"/>
                         <componentUiSettings isFlippedHorizontally="false" isFlippedVertically="false" visible="true" position="(-877.316;88.1774)" rotationState="3" sceneIndex="0"/>
                         <schematicProps>
@@ -1086,12 +1064,13 @@
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="12"/>
                                 </from>
                                 <to>
-                                    <IdDto category="5" componentType="39" componentNumber="2" pinNumber="0"/>
+                                    <IdDto category="100" componentType="45" componentNumber="0" pinNumber="18"/>
                                 </to>
                                 <path>
                                     <point value="(-391;-4)"/>
-                                    <point value="(-492;-4)"/>
-                                    <point value="(-492;-83)"/>
+                                    <point value="(-450.146;-4)"/>
+                                    <point value="(-450.146;-251)"/>
+                                    <point value="(-388;-251)"/>
                                 </path>
                             </connection>
                         </connections>
@@ -1103,12 +1082,13 @@
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="13"/>
                                 </from>
                                 <to>
-                                    <IdDto category="5" componentType="39" componentNumber="1" pinNumber="0"/>
+                                    <IdDto category="100" componentType="45" componentNumber="0" pinNumber="14"/>
                                 </to>
                                 <path>
                                     <point value="(-390;-66)"/>
-                                    <point value="(-439;-66)"/>
-                                    <point value="(-439;-83)"/>
+                                    <point value="(-417.008;-66)"/>
+                                    <point value="(-417.008;-161)"/>
+                                    <point value="(-389;-161)"/>
                                 </path>
                             </connection>
                         </connections>
@@ -1251,24 +1231,6 @@
                             <connection connectionType="1" routingType="0" sceneIndex="0">
                                 <from>
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="7"/>
-                                </from>
-                                <to>
-                                    <IdDto category="100" componentType="45" componentNumber="0" pinNumber="20"/>
-                                </to>
-                                <path/>
-                            </connection>
-                            <connection connectionType="1" routingType="0" sceneIndex="0">
-                                <from>
-                                    <IdDto category="5" componentType="39" componentNumber="2" pinNumber="1"/>
-                                </from>
-                                <to>
-                                    <IdDto category="100" componentType="45" componentNumber="0" pinNumber="20"/>
-                                </to>
-                                <path/>
-                            </connection>
-                            <connection connectionType="1" routingType="0" sceneIndex="0">
-                                <from>
-                                    <IdDto category="5" componentType="39" componentNumber="1" pinNumber="1"/>
                                 </from>
                                 <to>
                                     <IdDto category="100" componentType="45" componentNumber="0" pinNumber="20"/>
