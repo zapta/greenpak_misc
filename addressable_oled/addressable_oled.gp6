@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/20/2024 1:02 PM" projectChecksumState="1" projectChecksum="0fb296c6">
+<GPDProject version="28" oldestCompatibleVersion="28" GPDVersion="6.39.001" lastChange="1/20/2024 6:11 PM" projectChecksumState="1" projectChecksum="a560c13f">
     <generalProjectSettings/>
     <chip family="04" type="06" friendlyName="GreenPAK 6" partNumber="36" package="16">
-        <nvmData registerLenght="2048">C5 C5 54 11 45 A0 4C 5A 31 6A C5 3C 55 3 0 4C FB 33 68 35 2C 11 E0 40 18 C5 54 B 53 5D D3 9 30 3F BB A6 A7 25 9D 5B 35 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 EB 6F FD EE F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 11 11 11 30 0 0 30 30 30 0 0 0 0 21 21 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 22 30 C 0 0 0 0 0 0 0 E9 69 2 0 0 30 0 55 0 0 D8 2E 50 0 0 0 0 80 0 20 0 1 0 8 0 2 1 0 0 2 4 1 0 22 2 1 0 0 2 4 1 0 CA 2 1 0 CA 2 0 1 10 30 2 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
+        <nvmData registerLenght="2048">C5 C5 54 11 45 A0 4C 5A 31 6A C5 3C 55 3 0 4C FB 33 68 35 2C 11 E0 40 18 C5 54 B 53 5D D3 9 30 3F BB A6 A7 25 9D 5B 35 31 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 C0 6A FD CB CF FC EE F 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 30 0 11 11 11 30 0 0 30 80 0 0 0 0 0 21 21 61 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 14 22 30 C 0 0 0 0 0 0 0 E9 69 2 0 0 30 0 55 0 0 D8 2E 90 0 0 0 0 80 0 20 0 1 0 8 0 2 1 0 0 2 4 1 0 22 2 1 0 0 2 4 1 0 CA 2 1 0 CA 2 0 1 10 30 2 0 1 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 A5</nvmData>
         <eepromData id="0">0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</eepromData>
-        <checksum crc32="0xE7D72334" version="7"/>
+        <checksum crc32="0x68ED2956" version="7"/>
         <VDDItem id="0">
             <item id="0" caption="VDD (PIN 20)">
                 <graphics pos="(-804.86,-165.39)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
@@ -64,14 +64,16 @@
         <item id="10" caption="GND (PIN 10)">
             <graphics pos="(-805.98,-72.18)" angle="0" flipping="0" hidden="0" tOrigin="(20.00,10.00)"/>
         </item>
-        <IOPad id="11" useCaseMode="0">
+        <IOPad id="11" useCaseMode="2">
             <item id="11" caption="PIN 9 (IO7)">
-                <graphics pos="(-54.31,48.27)" angle="0" flipping="1" hidden="1" tOrigin="(20.00,10.00)"/>
+                <graphics pos="(567.21,177.50)" angle="0" flipping="1" hidden="0" tOrigin="(20.00,10.00)"/>
+                <textLabel pos="(8.50,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">DC</textLabel>
             </item>
         </IOPad>
-        <IOPad id="12" useCaseMode="0">
+        <IOPad id="12" useCaseMode="2">
             <item id="12" caption="PIN 8 (IO8)">
-                <graphics pos="(463.69,-133.00)" angle="0" flipping="1" hidden="1" tOrigin="(20.00,10.00)"/>
+                <graphics pos="(572.92,300.84)" angle="0" flipping="1" hidden="0" tOrigin="(20.00,10.00)"/>
+                <textLabel pos="(3.00,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">nRST</textLabel>
             </item>
         </IOPad>
         <VDDItem id="13">
@@ -81,14 +83,14 @@
         </VDDItem>
         <IOPad id="14" useCaseMode="2">
             <item id="14" caption="PIN 6 (IO9)">
-                <graphics pos="(564.76,182.08)" angle="0" flipping="1" hidden="0" tOrigin="(20.00,10.00)"/>
-                <textLabel pos="(-7.46,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">DC/CMD</textLabel>
+                <graphics pos="(567.84,25.16)" angle="0" flipping="1" hidden="0" tOrigin="(20.00,10.00)"/>
+                <textLabel pos="(-13.46,-27.00)" angle="0.00" textColor="#ffff00ff" backgroundColor="#14141464">MOSI_OUT</textLabel>
             </item>
         </IOPad>
         <IOPad id="15" useCaseMode="2">
             <item id="15" caption="PIN 5 (IO10)">
-                <graphics pos="(564.39,291.90)" angle="180" flipping="2" hidden="0" tOrigin="(20.00,10.00)"/>
-                <textLabel pos="(37.32,47.00)" angle="-180.00" textColor="#ffff00ff" backgroundColor="#14141464">nRST</textLabel>
+                <graphics pos="(565.93,-97.32)" angle="180" flipping="2" hidden="0" tOrigin="(20.00,10.00)"/>
+                <textLabel pos="(47.32,47.00)" angle="-180.00" textColor="#ffff00ff" backgroundColor="#14141464">CLK_OUT</textLabel>
             </item>
         </IOPad>
         <IOPad id="16" useCaseMode="2">
@@ -106,7 +108,7 @@
         <IOPad id="18" useCaseMode="1">
             <item id="18" caption="PIN 2 (IO13)">
                 <graphics pos="(-394.94,222.74)" angle="180" flipping="3" hidden="0" tOrigin="(20.00,10.00)"/>
-                <textLabel pos="(34.32,47.00)" angle="-180.00" textColor="#ffff00ff" backgroundColor="#14141464">CLK</textLabel>
+                <textLabel pos="(42.32,47.00)" angle="-180.00" textColor="#ffff00ff" backgroundColor="#14141464">CLK_IN</textLabel>
             </item>
         </IOPad>
         <IOPad id="19" useCaseMode="1">
@@ -368,13 +370,13 @@
             <points/>
         </wire>
         <wire output="155" input="627" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="20" wireText="D0" wireState="0">
-            <points>(177.00,-120.00); (208.94,-120.00); (208.94,-57.00); (80.71,-57.00); (80.71,-36.00); (93.00,-36.00)</points>
+            <points>(177.00,-120.00); (208.94,-120.00); (208.94,-71.99); (80.71,-71.99); (80.71,-36.00); (93.00,-36.00)</points>
         </wire>
         <wire output="157" input="557" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="13" wireText="NET13" wireState="0">
             <points>(-329.00,129.00); (-264.00,129.00)</points>
         </wire>
         <wire output="193" input="564" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="18" wireText="D1" wireState="0">
-            <points>(184.00,-31.00); (208.00,-31.00); (208.00,51.00); (78.94,51.00); (78.94,71.00); (96.00,71.00)</points>
+            <points>(184.00,-31.00); (208.00,-31.00); (208.00,33.70); (78.94,33.70); (78.94,71.00); (96.00,71.00)</points>
         </wire>
         <wire output="164" input="565" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="19" wireText="CS" wireState="1">
             <points/>
@@ -469,20 +471,14 @@
         <wire output="0" input="528" autoRouting="1" pen="#ff8000ff;1.00;1;32;128" lineType="2" protected="1" CWLid="-1" wireText="VDD" wireState="1">
             <points/>
         </wire>
-        <wire output="165" input="527" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="34" wireText="NET34" wireState="0">
-            <points>(468.00,306.00); (541.00,306.00)</points>
-        </wire>
         <wire output="0" input="525" autoRouting="1" pen="#ff8000ff;1.00;1;32;128" lineType="2" protected="1" CWLid="-1" wireText="VDD" wireState="1">
             <points/>
-        </wire>
-        <wire output="199" input="524" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="33" wireText="NET33" wireState="0">
-            <points>(469.00,188.00); (542.00,188.00)</points>
         </wire>
         <wire output="195" input="549" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="24" wireText="D3" wireState="0">
             <points>(189.00,182.00); (208.00,182.00); (208.00,254.29); (76.00,254.29); (76.00,296.00); (99.00,296.00)</points>
         </wire>
         <wire output="166" input="631" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="27" wireText="D2" wireState="0">
-            <points>(187.00,75.00); (205.94,75.00); (205.94,159.00); (77.88,159.00); (77.88,177.00); (98.00,177.00)</points>
+            <points>(187.00,75.00); (205.94,75.00); (205.94,144.01); (77.88,144.01); (77.88,177.00); (98.00,177.00)</points>
         </wire>
         <wire output="164" input="550" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="19" wireText="CS" wireState="1">
             <points/>
@@ -534,6 +530,21 @@
         </wire>
         <wire output="145" input="261" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="26" wireText="NET26" wireState="0">
             <points>(-410.00,714.00); (-284.00,714.00); (-284.00,718.00); (-262.00,718.00)</points>
+        </wire>
+        <wire output="0" input="522" autoRouting="1" pen="#ff8000ff;1.00;1;32;128" lineType="2" protected="1" CWLid="-1" wireText="VDD" wireState="1">
+            <points/>
+        </wire>
+        <wire output="199" input="518" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="33" wireText="NET33" wireState="0">
+            <points>(469.00,188.00); (544.00,188.00)</points>
+        </wire>
+        <wire output="165" input="521" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="34" wireText="NET34" wireState="0">
+            <points>(468.00,306.00); (550.00,306.00)</points>
+        </wire>
+        <wire output="156" input="527" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="3" wireText="CLK" wireState="1">
+            <points/>
+        </wire>
+        <wire output="155" input="524" autoRouting="1" pen="#00ff00ff;1.00;1;32;128" lineType="1" protected="0" CWLid="20" wireText="D0" wireState="1">
+            <points/>
         </wire>
     </chip>
     <emulatorConfiguration version="4" oldestCompatibleVersion="4">
@@ -764,6 +775,12 @@
                     <pinProbe instrumentId="47" measurementFlags="1">
                         <IdDto category="100" componentType="45" componentNumber="0" pinNumber="4"/>
                     </pinProbe>
+                    <pinProbe instrumentId="48" measurementFlags="1">
+                        <IdDto category="100" componentType="45" componentNumber="0" pinNumber="9"/>
+                    </pinProbe>
+                    <pinProbe instrumentId="49" measurementFlags="1">
+                        <IdDto category="100" componentType="45" componentNumber="0" pinNumber="8"/>
+                    </pinProbe>
                 </pinProbes>
                 <groups>
                     <group name="V3 -&gt; CS_EXT [n+]" customGroupLayout="true">
@@ -787,14 +804,14 @@
                             </WaveformIdData>
                         </waveforms>
                     </group>
-                    <group name="nRST (PIN 5)" customGroupLayout="false">
+                    <group name="CLK_OUT (PIN 5)" customGroupLayout="false">
                         <waveforms>
                             <WaveformIdData analysisType="0" pinIdStr="100;45;0;5" xAxisBinding="0;;-1;-1;-1">
                                 <parameters/>
                             </WaveformIdData>
                         </waveforms>
                     </group>
-                    <group name="DC/CMD (PIN 6)" customGroupLayout="false">
+                    <group name="MOSI_OUT (PIN 6)" customGroupLayout="false">
                         <waveforms>
                             <WaveformIdData analysisType="0" pinIdStr="100;45;0;6" xAxisBinding="0;;-1;-1;-1">
                                 <parameters/>
@@ -804,6 +821,20 @@
                     <group name="nCS_OUT (PIN 4)" customGroupLayout="false">
                         <waveforms>
                             <WaveformIdData analysisType="0" pinIdStr="100;45;0;4" xAxisBinding="0;;-1;-1;-1">
+                                <parameters/>
+                            </WaveformIdData>
+                        </waveforms>
+                    </group>
+                    <group name="nRST (PIN 8)" customGroupLayout="false">
+                        <waveforms>
+                            <WaveformIdData analysisType="0" pinIdStr="100;45;0;8" xAxisBinding="0;;-1;-1;-1">
+                                <parameters/>
+                            </WaveformIdData>
+                        </waveforms>
+                    </group>
+                    <group name="DC (PIN 9)" customGroupLayout="false">
+                        <waveforms>
+                            <WaveformIdData analysisType="0" pinIdStr="100;45;0;9" xAxisBinding="0;;-1;-1;-1">
                                 <parameters/>
                             </WaveformIdData>
                         </waveforms>
@@ -844,6 +875,18 @@
                     <waveform>
                         <waveformSetup penColor="#9bc74d" penWidth="2" style="0" attributes="1" symbol="-1" symSize="6" symColor="#ff0000"/>
                         <WaveformIdData analysisType="0" pinIdStr="100;45;0;6" xAxisBinding="0;;-1;-1;-1">
+                            <parameters/>
+                        </WaveformIdData>
+                    </waveform>
+                    <waveform>
+                        <waveformSetup penColor="#26e056" penWidth="2" style="0" attributes="1" symbol="-1" symSize="6" symColor="#ff0000"/>
+                        <WaveformIdData analysisType="0" pinIdStr="100;45;0;8" xAxisBinding="0;;-1;-1;-1">
+                            <parameters/>
+                        </WaveformIdData>
+                    </waveform>
+                    <waveform>
+                        <waveformSetup penColor="#2e8eff" penWidth="2" style="0" attributes="1" symbol="-1" symSize="6" symColor="#ff0000"/>
+                        <WaveformIdData analysisType="0" pinIdStr="100;45;0;9" xAxisBinding="0;;-1;-1;-1">
                             <parameters/>
                         </WaveformIdData>
                     </waveform>

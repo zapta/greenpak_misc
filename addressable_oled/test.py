@@ -11,23 +11,25 @@ print(f"Connecting to port {port}...", flush=True)
 spi =  SpiAdapter(port = port)
 print(f"Connected.", flush=True)
 
-spi.set_aux_pin_mode(0, AuxPinMode.OUTPUT)
-
 
 i = 0
 while True:
   i += 1
-  print(f"\n{i:04d} Sending...", flush=True)
+  print(f"\nLoop {i:04d}", flush=True)
 
-  rst_mask = 0b00010000 if (i & 4) else 0
-  dc_mask  = 0b00001000 if (i & 2) else 0 
-  adr = 0b010
+  rst_bit = bool(i & 4)
+  dc_bit = bool(i & 2)
 
-  ctrl_byte = rst_mask | dc_mask | adr 
+  rst_mask = 0b10000 if rst_bit else 0
+  dc_mask  = 0b01000 if dc_bit else 0
 
-  data = bytearray([ctrl_byte, 1, 2, 3])
-  result = spi.send(data, mode=0, read=True)
-  print(f"{i:04d} Result: {result.hex(' ')}", flush=True)
+  for addr in [0, 1, 2, 4, 3, 5, 6, 7] :
+    assert isinstance(addr, int)
+    assert 0 <= addr <= 7
+    ctrl_byte = rst_mask | dc_mask | addr 
+    data = bytearray([ctrl_byte, 1, 2, 3])
+    result = spi.send(data, mode=0, read=True)
+    print(f"{i:04d} Result: {result.hex(' ')}", flush=True)
   time.sleep(0.01)
   
 
