@@ -1,0 +1,13 @@
+fp-info-cache
+*.kicad_sch-bak
+*.sch-bak
+*.kicad_pcb-bak
+*-backups
+_autosave-*.sch
+*.bak
+*.bck
+production
+production.zip
+_autosave-*
+*auto_saved_files*
+
