@@ -1,4 +1,0 @@
-(fp_lib_table
-  (version 7)
-  (lib (name "greenpack_smd_adapters")(type "KiCad")(uri "${KIPRJMOD}/smd_adapters.pretty")(options "")(descr ""))
-)
