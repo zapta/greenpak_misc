@@ -1,4 +1,5 @@
 *-backups
+*.bak
 fp-info-cache
 production
 .DS_Store

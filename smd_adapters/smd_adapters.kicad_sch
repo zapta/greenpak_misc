@@ -733,7 +733,7 @@
           (number "11" (effects (font (size 1.27 1.27))))
         )
         (pin tri_state line (at 12.7 -8.89 180) (length 3.81)
-          (name "SCL" (effects (font (size 1.27 1.27))))
+          (name "SDA" (effects (font (size 1.27 1.27))))
           (number "12" (effects (font (size 1.27 1.27))))
         )
         (pin tri_state line (at 12.7 -6.35 180) (length 3.81)
